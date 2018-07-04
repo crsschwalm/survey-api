@@ -2,9 +2,15 @@ const express = require('express');
 const path = require('path');
 const app = express();
 const port = process.env.PORT || 5000;
+const surveyExamples = require('./api/exampleSurveys')
 
-app.get('/api/hello', (req, res) => {
-  res.send({ express: 'Hello From Express' });
+app.get('/api/getExampleSurveys', (req, res) => {
+  res.send({ surveys: surveyExamples });
+});
+
+app.get('/api/getExampleSurvey/:surveyId', (req, res) => {
+  const survey = surveyExamples.filter(survey => survey.id === req.params.surveyId)[0];
+  res.send({ survey: survey });
 });
 
 if (process.env.NODE_ENV === 'production') {

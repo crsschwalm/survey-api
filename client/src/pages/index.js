@@ -1,22 +1,21 @@
 import React, { Component } from 'react';
-
 import logo from './logo.svg';
-
 import './index.css';
+import SurveyList from '../components/SurveyList';
 
 class Home extends Component {
     state = {
-        response: ''
+        response: []
     };
 
     componentDidMount() {
         this.callApi()
-            .then(res => this.setState({ response: res.express }))
+            .then(res => this.setState({ response: res.surveys }))
             .catch(err => console.log(err));
     }
 
     callApi = async () => {
-        const response = await fetch('/api/surveys');
+        const response = await fetch('/api/getExampleSurveys');
         const body = await response.json();
 
         if (response.status !== 200) throw Error(body.message);
@@ -31,7 +30,15 @@ class Home extends Component {
                     <img src={logo} className="App-logo" alt="logo" />
                     <h1 className="App-title">Welcome to React</h1>
                 </header>
-                <p className="App-intro">{this.state.response}</p>
+                <section className="section">
+                    <div className="container section">
+                        <div className="columns is-centered">
+                            <div className="column is-three-quarters is-narrow">
+                                <SurveyList surveys={this.state.response} />
+                            </div>
+                        </div>
+                    </div>
+                </section>
             </div>
         );
     }
