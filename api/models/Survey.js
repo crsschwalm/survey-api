@@ -1,4 +1,9 @@
-import mongoose from 'mongoose';
+const mongoose = require('mongoose');
+const { SelectFromSchema } = require('./SelectFrom');
+const { CheckAllSchema } = require('./CheckAll');
+const { TextInputSchema } = require('./TextInput');
+const { FieldSchema } = require('./Field');
+
 const Schema = mongoose.Schema;
 
 const SurveySchema = new Schema({
@@ -6,15 +11,13 @@ const SurveySchema = new Schema({
     author: String,
     name: String,
     description: String,
-    fields: [
-        {
-            fieldType: String,
-            fieldTitle: String,
-            options: [{ id: Schema.Types.ObjectId, label: String }]
-        }
-    ],
+    fields: [FieldSchema],
     startDate: { type: Date, default: Date.now },
     endDate: { type: Date }
 });
 
-export default mongoose.model('Survey', SurveySchema);
+// SurveySchema.path('fields').discriminator('SelectFrom', SelectFromSchema);
+// SurveySchema.path('fields').discriminator('CheckAll', CheckAllSchema);
+// SurveySchema.path('fields').discriminator('TextInput', TextInputSchema);
+
+module.exports = mongoose.model('Survey', SurveySchema);

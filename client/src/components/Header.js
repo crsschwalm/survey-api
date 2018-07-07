@@ -4,12 +4,9 @@ import { NavLink } from "react-router-dom";
 const Header = () => (
     <nav className="navbar is-transparent">
         <div className="navbar-brand">
-            <a
-                className="navbar-item"
-                href="https://dminc.com/location/indianapolis-in/"
-            >
-                DMI
-            </a>
+            <p className="control">
+                <NavLink to="/">Home</NavLink>
+            </p>
         </div>
 
         <div className="navbar-menu">
@@ -17,10 +14,7 @@ const Header = () => (
                 <div className="navbar-item">
                     <div className="field is-grouped">
                         <p className="control">
-                            <NavLink to="/">Home</NavLink>
-                        </p>
-                        <p className="control">
-                            <NavLink to="/survey">Survey</NavLink>
+                            <NavLink to="/create">Create New</NavLink>
                         </p>
                     </div>
                 </div>

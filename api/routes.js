@@ -1,5 +1,5 @@
-import express from 'express';
-import * as surveyService from './services/surveyService';
+const express = require('express');
+const surveyService = require('./services/surveyService');
 // import {
 //     register,
 //     login,
@@ -12,12 +12,10 @@ const Router = express.Router();
 Router.post('/survey/save', surveyService.saveSurvey);
 Router.post(
     'survey/delete/:id',
-    isAuthenticated,
     surveyService.deleteSurveyById
 );
 Router.put(
     'survey/update/:id',
-    isAuthenticated,
     surveyService.updateSurveyById
 );
 //Open Routes
@@ -29,4 +27,4 @@ Router.get('/survey/:id', surveyService.findSurveyById);
 // Router.post('/login', login);
 // Router.post('/logout', logout);
 
-export default Router;
+module.exports = Router;

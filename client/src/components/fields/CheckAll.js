@@ -1,10 +1,10 @@
 import React, { Component } from 'react';
 
 export default class CheckAll extends Component {
-  constructor(props) {
-    super(props);
-    this.state = {};
-  }
+
+  handleChange = (event) =>
+    this.props.onChange(this.props.id, event.target.checked)
+
   renderCheckBoxes() {
     return this.props.options.map(option => (
       <label
@@ -16,6 +16,7 @@ export default class CheckAll extends Component {
           id={option.id}
           type="checkbox"
           style={{ marginRight: '.25rem' }}
+          onChange={this.handleChange}
         />
         {option.label}
       </label>
@@ -25,7 +26,7 @@ export default class CheckAll extends Component {
   render() {
     return (
       <div className="field ">
-        <label className="label">{this.props.fieldTitle}</label>
+        <label className="label">{this.props.question}</label>
         <div className="control is-grouped is-grouped-multiline">
           {this.renderCheckBoxes()}
         </div>

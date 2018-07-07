@@ -6,9 +6,8 @@ export default class SelectFrom extends Component {
     this.state = { value: undefined };
   }
 
-  handleChange(event) {
-    this.setState({ value: event.target.value });
-  }
+  handleChange = (event) => this.props.onChange(this.props.id, event.target.value)
+
 
   renderDropDownOptions = () =>
     this.props.options.map(option => (
@@ -20,7 +19,7 @@ export default class SelectFrom extends Component {
   render() {
     return (
       <div className="field">
-        <label className="label">{this.props.fieldTitle}</label>
+        <label className="label">{this.props.question}</label>
         <div className="control">
           <div className="select">
             <select value={this.state.value} onChange={this.handleChange}>

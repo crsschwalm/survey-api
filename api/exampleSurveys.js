@@ -5,129 +5,160 @@ const surveys = [{
     description: 'This is an example of what a survey could look like',
     fields: [
         {
-            fieldType: 'checkAll',
-            fieldTitle: 'Check all That apply',
+
+            fieldType: 'CheckAll',
+            question: 'Check all That apply',
+            response: ['first check'],
             options: [
-                { id: '1234', label: 'first check' },
-                { id: '12345', label: 'second check' },
-                { id: '123456', label: 'third check' }
+                { label: 'first check' },
+                { label: 'second check' },
+                { label: 'third check' }
             ]
         },
         {
-            fieldType: 'selectFrom',
-            fieldTitle: 'Select the one that applies',
+
+            fieldType: 'SelectFrom',
+            question: 'Select the one that applies',
+            response: 'second option',
             options: [
-                { id: '1234', label: 'first option' },
-                { id: '12345', label: 'second option' },
-                { id: '123456', label: 'third option' }
+                { label: 'first option' },
+                { label: 'second option' },
+                { label: 'third option' }
             ]
         },
         {
-            fieldType: 'textInput',
-            fieldTitle: 'Tell me something'
+
+            fieldType: 'TextInput',
+            question: 'Tell me something',
+            response: 'aaa',
         }
     ],
     startDate: new Date('April 1, 2018'),
     endDate: new Date('December 17, 2018')
 },
 {
-    id: '1234',
+
     author: 'bBob',
     name: 'Example Survey 2',
     description: 'This too is an example of what a survey could look like',
     fields: [
         {
-            fieldType: 'textInput',
-            fieldTitle: 'Tell me something'
+
+            fieldType: 'TextInput',
+            question: 'Tell me something',
+            response: 'aaffa',
         },
         {
-            fieldType: 'selectFrom',
-            fieldTitle: 'Select the one that applies',
+
+            fieldType: 'SelectFrom',
+            question: 'Select the one that applies',
+            response: 'third option',
             options: [
-                { id: '1234', label: 'first option' },
-                { id: '12345', label: 'second option' },
-                { id: '123456', label: 'third option' }
+                { label: 'first option' },
+                { label: 'second option' },
+                { label: 'third option' }
             ]
         },
         {
-            fieldType: 'textInput',
-            fieldTitle: 'Tell me something'
+
+            fieldType: 'TextInput',
+            question: 'Tell me something',
+            response: 'aaa',
         },
         {
-            fieldType: 'checkAll',
-            fieldTitle: 'Check all That apply',
+
+            fieldType: 'CheckAll',
+            question: 'Check all That apply',
+            response: ['second check', 'first check'],
             options: [
-                { id: '1234', label: 'first check' },
-                { id: '12345', label: 'second check' },
-                { id: '123456', label: 'third check' }
+                { label: 'first check' },
+                { label: 'second check' },
+                { label: 'third check' }
             ]
         },
         {
-            fieldType: 'textInput',
-            fieldTitle: 'Tell me something'
+
+            fieldType: 'TextInput',
+            question: 'Tell me something',
+            response: 'aaa',
         }
     ],
     startDate: new Date('April 5, 2018'),
     endDate: new Date('December 25, 2018')
 },
 {
-    id: '12345',
+
     author: 'tBilly',
     name: 'Example Survey 3',
     description: 'This also an example of what a survey could look like. May I ask you a question?',
     fields: [
         {
-            fieldType: 'checkAll',
-            fieldTitle: 'Check all That apply',
+
+            fieldType: 'CheckAll',
+            question: 'Check all That apply',
+            response: ['third check'],
             options: [
-                { id: '1234', label: 'first check' },
-                { id: '12345', label: 'second check' },
-                { id: '123456', label: 'third check' }
+                { label: 'first check' },
+                { label: 'second check' },
+                { label: 'third check' }
             ]
         },
         {
-            fieldType: 'checkAll',
-            fieldTitle: 'Check all That apply',
+
+            fieldType: 'CheckAll',
+            question: 'Check all That apply',
+            response: ['first check'],
             options: [
-                { id: '1234', label: 'first check' },
-                { id: '12345', label: 'second check' },
-                { id: '123456', label: 'third check' }
+                { label: 'first check' },
+                { label: 'second check' },
+                { label: 'third check' }
             ]
         },
         {
-            fieldType: 'checkAll',
-            fieldTitle: 'Check all That apply',
+
+            fieldType: 'CheckAll',
+            question: 'Check all That apply',
+            response: ['second check'],
+            expectedReponse: ['second check'],
             options: [
-                { id: '1234', label: 'first check' },
-                { id: '12345', label: 'second check' },
-                { id: '123456', label: 'third check' }
+                { label: 'first check' },
+                { label: 'second check' },
+                { label: 'third check' }
             ]
         },
         {
-            fieldType: 'selectFrom',
-            fieldTitle: 'Select the one that applies',
+
+            fieldType: 'SelectFrom',
+            question: 'Select the one that applies',
+            response: 'first option',
             options: [
-                { id: '1234', label: 'first option' },
-                { id: '12345', label: 'second option' },
-                { id: '123456', label: 'third option' }
+                { label: 'first option' },
+                { label: 'second option' },
+                { label: 'third option' }
             ]
         },
         {
-            fieldType: 'selectFrom',
-            fieldTitle: 'Select the one that applies',
+
+            fieldType: 'SelectFrom',
+            question: 'Select the one that applies',
+            response: 'second option',
             options: [
-                { id: '1234', label: 'first option' },
-                { id: '12345', label: 'second option' },
-                { id: '123456', label: 'third option' }
+                { label: 'first option' },
+                { label: 'second option' },
+                { label: 'third option' }
             ]
         },
         {
-            fieldType: 'textInput',
-            fieldTitle: 'Tell me something'
+
+            fieldType: 'TextInput',
+            question: 'Tell me something',
+            response: 'aaa',
         },
         {
-            fieldType: 'textInput',
-            fieldTitle: 'Tell me something'
+
+            fieldType: 'TextInput',
+            question: 'Tell me something',
+            response: 'aaa',
         }
     ],
     startDate: new Date('May 2, 2018'),

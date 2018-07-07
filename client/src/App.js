@@ -1,5 +1,5 @@
 import React, { Fragment } from "react";
-import { BrowserRouter as Router, Route } from "react-router-dom";
+import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
 import Header from './components/Header'
 import Footer from './components/Footer';
 import Home from './pages/index';
@@ -13,11 +13,13 @@ const Routes = () => (
         <Fragment>
             <Header />
             <div className="container">
-                <Route exact path="/" component={Home} />
-                <Route exact path="/survey/:surveyId" component={TakeSurvey} />
-                <Route exact path="/create" component={NewSurvey} />
-                {/* <Route exact path="/manage/:surveyId" component={ManageSurvey} /> */}
-                <Route component={NotFound} />
+                <Switch>
+                    <Route exact path="/" component={Home} />
+                    <Route exact path="/survey/:surveyId" component={TakeSurvey} />
+                    <Route exact path="/create" component={NewSurvey} />
+                    {/* <Route exact path="/manage/:surveyId" component={ManageSurvey} /> */}
+                    <Route component={NotFound} />
+                </Switch>
             </div>
             <Footer />
         </Fragment>
