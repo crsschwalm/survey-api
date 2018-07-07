@@ -5,15 +5,11 @@ const app = express();
 const port = process.env.PORT || 5000;
 const surveyExamples = require('./api/exampleSurveys')
 const routes = require('./api/routes');
+const bodyParser = require('body-parser');
 
-app.get('/api/getExampleSurveys', (req, res) => {
-  res.send({ surveys: surveyExamples });
-});
 
-app.get('/api/getExampleSurvey/:surveyId', (req, res) => {
-  const survey = surveyExamples.filter(survey => survey.id === req.params.surveyId)[0];
-  res.send({ survey: survey });
-});
+app.use(bodyParser.urlencoded({ extended: true }))
+  .use(bodyParser.json())
 
 app.use('/api', routes);
 

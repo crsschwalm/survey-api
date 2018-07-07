@@ -3,7 +3,6 @@ const Schema = mongoose.Schema;
 
 const SelectFromSchema = new Schema({
     options: [{ label: String }],
-    response: String,
     expectedResponse: String
 });
 

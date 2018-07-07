@@ -16,8 +16,8 @@ const SurveySchema = new Schema({
     endDate: { type: Date }
 });
 
-// SurveySchema.path('fields').discriminator('SelectFrom', SelectFromSchema);
-// SurveySchema.path('fields').discriminator('CheckAll', CheckAllSchema);
-// SurveySchema.path('fields').discriminator('TextInput', TextInputSchema);
+SurveySchema.path('fields').discriminator('SelectFrom', SelectFromSchema);
+SurveySchema.path('fields').discriminator('CheckAll', CheckAllSchema);
+SurveySchema.path('fields').discriminator('TextInput', TextInputSchema);
 
 module.exports = mongoose.model('Survey', SurveySchema);

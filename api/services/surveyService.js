@@ -1,6 +1,7 @@
 const Survey = require('../models/Survey');
 const mongoose = require('mongoose');
 mongoose.connect(process.env.MONGODB_URI, { useNewUrlParser: true });
+
 module.exports = {
     findSurveyById: (req, res) => {
         const surveyId = req.params.id;
@@ -49,8 +50,6 @@ module.exports = {
         survey.fields = req.body.fields;
         survey.startDate = req.body.startDate;
         survey.endDate = req.body.endDate;
-        survey._id = new mongoose.Types.ObjectId;
-
         survey.save(
             err =>
                 !!err

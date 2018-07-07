@@ -10,12 +10,12 @@ export default class FieldList extends Component {
 
     componentDidMount() {
         this.callApi(this.props.surveyId)
-            .then(res => this.setState({ response: res.survey }))
+            .then(res => this.setState({ response: res }))
             .catch(err => console.log(err));
     }
 
     callApi = async (surveyId) => {
-        const response = await fetch(`/api/getExampleSurvey/${surveyId}`);
+        const response = await fetch(`/api/survey/${surveyId}`);
         const body = await response.json();
         if (response.status !== 200) throw Error(body.message);
         return body;

@@ -12,7 +12,11 @@ export default class TakeSurvey extends Component {
         this.setState({ answers: answers });
     }
 
-    handleSubmit = () => alert('woohoo logged!');
+    handleSubmit = () => {
+        const { match: { params } } = this.props;
+        console.log(this.state.answers)
+        alert(`Survey: ${params.surveyId} \n ${this.state.answers}`)
+    };
     handleCancel = () => alert('boohoo canceled!');
     render() {
         const { match: { params } } = this.props;

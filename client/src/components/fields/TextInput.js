@@ -1,12 +1,7 @@
 import React, { Component } from 'react';
 
 export default class TextInput extends Component {
-  constructor(props) {
-    super(props);
-    this.state = {};
-  }
-
-  handleChange = (event) => this.props.onChange(this.props.id, event.target.value)
+  handleChange = (event) => this.props.onChange(this.props._id, event.target.value)
 
   render() {
     return (

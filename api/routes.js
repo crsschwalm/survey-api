@@ -11,11 +11,11 @@ const Router = express.Router();
 //Admin Only
 Router.post('/survey/save', surveyService.saveSurvey);
 Router.post(
-    'survey/delete/:id',
+    '/survey/delete/:id',
     surveyService.deleteSurveyById
 );
 Router.put(
-    'survey/update/:id',
+    '/survey/update/:id',
     surveyService.updateSurveyById
 );
 //Open Routes

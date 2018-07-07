@@ -2,8 +2,7 @@ const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
 
 const CheckAllSchema = new Schema({
-    response: [{ label: String }],
-    options: [String],
+    options: [{ label: String }],
     expectedResponse: [String]
 });
 
