@@ -7,16 +7,7 @@ export default class EditableField extends Component {
             question: '', options: {}, expectedResponse: ''
         }
     }
-
     updateQuestion = ({ target: { value } }) => this.setState({ question: value })
-    updateExpectedOptionResponse = ({ target }) => {
-        const options = this.state.options;
-        options[target.value] = target.checked;
-        this.setState({ options: this.state.options })
-    }
-    updateExpectedTextResponse = ({ target }) =>
-        this.setState({ expectedResponse: target.value })
-
     addOption = (event) => {
         if (event.key === 'Enter' && !!event.target.value) {
             const options = this.state.options;
@@ -25,6 +16,19 @@ export default class EditableField extends Component {
             event.target.value = '';
         }
     }
+
+    removeOption = ({ target }) => {
+        const options = this.state.options;
+        delete options[target.value]
+        this.setState({ options: options })
+    }
+    updateExpectedOptionResponse = ({ target }) => {
+        const options = this.state.options;
+        options[target.value] = target.checked;
+        this.setState({ options: this.state.options })
+    }
+    updateExpectedTextResponse = ({ target }) =>
+        this.setState({ expectedResponse: target.value })
 
     render() {
         const { fieldType } = this.props.field;
@@ -35,7 +39,7 @@ export default class EditableField extends Component {
                 <p>Field Type: <em>{fieldType}</em></p>
                 {fieldType === 'TextInput' ?
                     <TextField {...this.state} updateExpectedResponse={this.updateExpectedTextResponse} /> :
-                    <OptionField {...this.state} updateExpectedResponse={this.updateExpectedOptionResponse} addOption={this.addOption} />}
+                    <OptionField {...this.state} updateExpectedResponse={this.updateExpectedOptionResponse} addOption={this.addOption} removeOption={this.removeOption} />}
                 <div>
                     <div onClick={this.props.onDelete}>Delete</div>
                 </div>
@@ -44,11 +48,25 @@ export default class EditableField extends Component {
     }
 }
 
-export const OptionField = ({ options, addOption, updateExpectedResponse }) => (
+export const OptionField = ({ options, addOption, removeOption, updateExpectedResponse }) => (
     <Fragment>
         <input placeholder='add answer with "Enter"' onKeyPress={addOption} />
         {!!Object.keys(options).length ? <p><strong>Select the expected response</strong></p> : null}
-        <p>{Object.keys(options).map((value, index) => <label key={index}>{value} <input value={value} type="checkbox" onChange={updateExpectedResponse} /> </label>)}</p>
+        <p>
+            {Object.keys(options).map(
+                (value, index) =>
+                    <Fragment>
+                        <label key={index}>
+                            {value}
+                            <input value={value} type="checkbox" onChange={updateExpectedResponse} />
+
+                        </label>
+                        <span className="icon has-text-danger" onClick={removeOption} value={value}>
+                            <i className="fas fa-ban"></i>
+                        </span>
+                    </Fragment>
+            )}
+        </p>
     </Fragment>
 )
 export const TextField = ({ updateExpectedResponse }) => (
