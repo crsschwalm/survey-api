@@ -14,7 +14,6 @@ export default class TakeSurvey extends Component {
 
     handleSubmit = () => {
         const { match: { params } } = this.props;
-        console.log(this.state.answers)
         alert(`Survey: ${params.surveyId} \n ${this.state.answers}`)
     };
     handleCancel = () => alert('boohoo canceled!');

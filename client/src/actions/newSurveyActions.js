@@ -1,0 +1,1 @@
+export const addField = (fieldType) => ({ type: 'ADD_FIELD', payload: fieldType })
