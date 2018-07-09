@@ -1,72 +1,76 @@
 import React, { Component, Fragment } from 'react';
+import { connect } from 'react-redux'
+import { removeField, updateQuestion, addOption, removeOption, updateExpectedTextResponse, updateExpectedOptionResponse } from '../../actions/newSurveyActions'
 
-export default class EditableField extends Component {
+class EditableField extends Component {
     constructor(props) {
         super(props);
         this.state = {
             question: '', options: {}, expectedResponse: ''
         }
     }
-    updateQuestion = ({ target: { value } }) => this.setState({ question: value })
+    removeField = () =>
+        this.props.dispatch(removeField(this.props.index))
+    updateQuestion = ({ target: { value } }) => {
+        this.setState({ question: value })
+        this.props.dispatch(updateQuestion(this.props.index, value))
+    }
+
     addOption = (event) => {
         if (event.key === 'Enter' && !!event.target.value) {
-            const options = this.state.options;
-            options[event.target.value] = false
-            this.setState({ options: options })
+            this.props.dispatch(addOption(this.props.index, event.target.value))
             event.target.value = '';
         }
     }
+    removeOption = ({ target: { value } }) =>
+        this.props.dispatch(removeOption(this.props.index, value))
 
-    removeOption = ({ target }) => {
-        const options = this.state.options;
-        delete options[target.value]
-        this.setState({ options: options })
-    }
-    updateExpectedOptionResponse = ({ target }) => {
-        const options = this.state.options;
-        options[target.value] = target.checked;
-        this.setState({ options: this.state.options })
-    }
+    updateExpectedOptionResponse = ({ target }) => this.props.dispatch(updateExpectedOptionResponse(this.props.index, target.value))
     updateExpectedTextResponse = ({ target }) =>
-        this.setState({ expectedResponse: target.value })
+        this.props.dispatch(updateExpectedTextResponse(this.props.index, target.value))
 
     render() {
-        const { fieldType } = this.props.field;
-        const { question } = this.state;
+        const { fieldType, options, question } = this.props;
         return (
             <div className="field">
                 <h3><input placeholder='What Question would you like to ask?' value={question} onChange={this.updateQuestion} /></h3>
                 <p>Field Type: <em>{fieldType}</em></p>
                 {fieldType === 'TextInput' ?
-                    <TextField {...this.state} updateExpectedResponse={this.updateExpectedTextResponse} /> :
-                    <OptionField {...this.state} updateExpectedResponse={this.updateExpectedOptionResponse} addOption={this.addOption} removeOption={this.removeOption} />}
-                <div>
-                    <div onClick={this.props.onDelete}>Delete</div>
-                </div>
+                    <TextField updateExpectedResponse={this.updateExpectedTextResponse} /> :
+                    <OptionField options={options} updateExpectedResponse={this.updateExpectedOptionResponse} addOption={this.addOption} removeOption={this.removeOption} />}
+                <span className="icon has-text-danger" onClick={this.removeField}>
+                    <i className="fas fa-ban"></i>
+                </span>
             </div >
         )
     }
 }
 
+const mapStateToProps = (state, ownProps) => {
+    const { question, options, expectedResponse, fieldType } = state.newSurvey.fields[ownProps.index]
+    return { question: question, options: { ...options }, expectedResponse: expectedResponse, fieldType: fieldType };
+};
+
+export default connect(mapStateToProps)(EditableField);
+
 export const OptionField = ({ options, addOption, removeOption, updateExpectedResponse }) => (
     <Fragment>
         <input placeholder='add answer with "Enter"' onKeyPress={addOption} />
         {!!Object.keys(options).length ? <p><strong>Select the expected response</strong></p> : null}
-        <p>
+        <Fragment>
             {Object.keys(options).map(
                 (value, index) =>
-                    <Fragment>
-                        <label key={index}>
-                            {value}
+                    <div key={index}>
+                        <label>
                             <input value={value} type="checkbox" onChange={updateExpectedResponse} />
-
+                            {value}
                         </label>
                         <span className="icon has-text-danger" onClick={removeOption} value={value}>
                             <i className="fas fa-ban"></i>
                         </span>
-                    </Fragment>
+                    </div>
             )}
-        </p>
+        </Fragment>
     </Fragment>
 )
 export const TextField = ({ updateExpectedResponse }) => (

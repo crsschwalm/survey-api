@@ -2,24 +2,15 @@ import React, { Component } from 'react';
 import ManageField from '../components/fields/ManageField'
 import EditableField from '../components/fields/EditableField'
 import { connect } from 'react-redux'
-import { addField } from '../actions/newSurveyActions'
+import { addField, submit } from '../actions/newSurveyActions'
 
 const flexyStyle = { display: 'flex', justifyContent: 'space-around' }
 
 class NewSurvey extends Component {
-    addField = (fieldType) => {
+    addField = (fieldType) =>
         this.props.dispatch(addField(fieldType))
-    }
-
-    removeField = (fieldIndex) => {
-        const fieldsToKeep = this.state.fields.filter((field, index) => fieldIndex !== index)
-        this.setState({ fields: fieldsToKeep });
-    }
-
     handleSubmit = () =>
-        alert('woohoo logged!');
-
-
+        this.props.dispatch(submit())
     handleCancel = () =>
         alert('boohoo canceled!');
 
@@ -32,8 +23,14 @@ class NewSurvey extends Component {
                 <h2 className="subtitle">{`${fields.length} - fields`}</h2>
                 <div className="columns is-left-aligned">
                     <div className="column is-narrow">
-                        <EditableFields fields={fields} onDelete={this.removeField} />
-                        <NewFieldButtons onClick={this.addField} />
+                        <ul>
+                            {fields.map((field, index) => (
+                                <li key={index} style={flexyStyle}>
+                                    <EditableField index={index} />
+                                </li>
+                            ))}
+                        </ul>
+                        <NewFieldButtons addField={this.addField} />
                         <SubmitSurvey onSubmit={this.handleSubmit} onCancel={this.handleCancel} />
                     </div>
                 </div>
@@ -59,22 +56,22 @@ const SubmitSurvey = ({ onSubmit, onCancel }) => (
     </form>
 )
 
-const NewFieldButtons = ({ onClick }) => (
+const NewFieldButtons = ({ addField }) => (
     <div className="media-content" style={flexyStyle}>
         <span
-            onClick={() => onClick('TextInput')}
+            onClick={() => addField('TextInput')}
             className="button is-medium level-item"
         >
             Add Text Input
             </span>
         <span
-            onClick={() => onClick('CheckAll')}
+            onClick={() => addField('CheckAll')}
             className="button is-medium level-item"
         >
             Add Check All Field
             </span>
         <span
-            onClick={() => onClick('SelectFrom')}
+            onClick={() => addField('SelectFrom')}
             className="button is-medium level-item"
         >
             Add Select From Field
@@ -82,15 +79,6 @@ const NewFieldButtons = ({ onClick }) => (
     </div>
 )
 
-const EditableFields = ({ fields, onDelete }) => (<ul>{fields.map((field, index) => (
-    <li key={index} style={flexyStyle}>
-        <EditableField field={field} onDelete={() => onDelete(index)} />
-    </li>
-))}</ul>)
-
-
-
-// start of code change
 const mapStateToProps = (state) => {
     return { newSurvey: state.newSurvey };
 };
