@@ -11,10 +11,8 @@ class EditableField extends Component {
     }
     removeField = () =>
         this.props.dispatch(removeField(this.props.index))
-    updateQuestion = ({ target: { value } }) => {
-        this.setState({ question: value })
+    updateQuestion = ({ target: { value } }) =>
         this.props.dispatch(updateQuestion(this.props.index, value))
-    }
 
     addOption = (event) => {
         if (event.key === 'Enter' && !!event.target.value) {
@@ -22,7 +20,7 @@ class EditableField extends Component {
             event.target.value = '';
         }
     }
-    removeOption = ({ target: { value } }) =>
+    removeOption = (value) =>
         this.props.dispatch(removeOption(this.props.index, value))
 
     updateExpectedOptionResponse = ({ target }) => this.props.dispatch(updateExpectedOptionResponse(this.props.index, target.value))
@@ -65,7 +63,7 @@ export const OptionField = ({ options, addOption, removeOption, updateExpectedRe
                             <input value={value} type="checkbox" onChange={updateExpectedResponse} />
                             {value}
                         </label>
-                        <span className="icon has-text-danger" onClick={removeOption} value={value}>
+                        <span className="icon has-text-danger" onClick={() => removeOption(value)}>
                             <i className="fas fa-ban"></i>
                         </span>
                     </div>
