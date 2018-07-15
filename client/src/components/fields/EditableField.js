@@ -15,7 +15,6 @@ class EditableField extends Component {
         this.props.dispatch(setQuestion(this.props.index, value))
 
     addOption = (event) => {
-        console.log(event)
         if (event.key === 'Enter' && !!event.target.value) {
             this.props.dispatch(addOption(this.props.index, event.target.value))
             event.target.value = '';

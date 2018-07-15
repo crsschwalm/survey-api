@@ -1,6 +1,7 @@
 const generateField = (fieldType) => ({ fieldType: fieldType, question: '', options: {}, expectedResponse: '' })
+const emptySurvey = () => ({ name: '', description: '', startDate: '', endDate: '', fields: [] });
 
-const newSurveyReducer = (state = { name: '', description: '', startDate: '', endDate: '', fields: [] }, action) => {
+const newSurveyReducer = (state = emptySurvey(), action) => {
     const { type, payload } = action;
     switch (type) {
         case 'ADD_FIELD': {
@@ -26,6 +27,10 @@ const newSurveyReducer = (state = { name: '', description: '', startDate: '', en
             console.log(state);
             alert('woohoo survey should be saved \n ' + state);
             return { ...state };
+        }
+        case 'CLEAR': {
+            state = emptySurvey()
+            return { ...state }
         }
         case 'CHANGE_QUESTION': {
             const { index, question } = payload;
@@ -63,8 +68,11 @@ const newSurveyReducer = (state = { name: '', description: '', startDate: '', en
             state.endDate = input;
             return { ...state };
         }
+        default: {
+            return state;
+        }
     }
-    return state;
+
 }
 
 export default newSurveyReducer;

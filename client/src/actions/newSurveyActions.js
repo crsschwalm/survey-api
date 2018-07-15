@@ -10,3 +10,4 @@ export const updateName = (input) => ({ type: 'CHANGE_NAME', payload: { input } 
 export const updateDescription = (input) => ({ type: 'CHANGE_DESCRIPTION', payload: { input } })
 export const updateStartDate = (input) => ({ type: 'CHANGE_START_DATE', payload: { input } })
 export const updateEndDate = (input) => ({ type: 'CHANGE_END_DATE', payload: { input } })
+export const clear = () => ({ type: 'CLEAR' })
