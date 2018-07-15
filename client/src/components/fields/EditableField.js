@@ -1,13 +1,12 @@
 import React, { Component, Fragment } from 'react';
 import { connect } from 'react-redux'
+import Input from '../form/Input';
+import CheckBox from '../form/CheckBox'
 import { removeField, setQuestion, addOption, removeOption, setExpectedText, setExpectedOptions } from '../../actions/newSurveyActions'
 
 class EditableField extends Component {
     constructor(props) {
         super(props);
-        this.state = {
-            question: '', options: {}, expectedResponse: ''
-        }
     }
     removeField = () =>
         this.props.dispatch(removeField(this.props.index))
@@ -28,17 +27,30 @@ class EditableField extends Component {
         this.props.dispatch(setExpectedText(this.props.index, target.value))
 
     render() {
-        const { fieldType, options, question } = this.props;
+        const { fieldType, options, question, index } = this.props;
         return (
-            <div className="field">
-                <h3><input placeholder='What Question would you like to ask?' value={question} onChange={this.setQuestion} /></h3>
-                <p>Field Type: <em>{fieldType}</em></p>
-                {fieldType === 'TextInput' ?
-                    <TextField updateExpectedResponse={this.setExpectedText} /> :
-                    <OptionField options={options} updateExpectedResponse={this.setExpectedOptions} addOption={this.addOption} removeOption={this.removeOption} />}
-                <span className="icon has-text-danger" onClick={this.removeField}>
-                    <i className="fas fa-ban"></i>
-                </span>
+            <div className="field is-horizontal">
+                <div className="field-label is-normal">
+                </div>
+                <div className="field-body columns is-centered" style={{ padding: '1rem 0' }}>
+                    <div className="box column is-half" style={{ position: 'relative' }}>
+                        <button className="button is-danger is-inverted" style={{ position: 'absolute', top: 0, left: 0 }} onClick={this.removeField}>
+                            <span className="icon has-text-danger">
+                                <i className="fas fa-ban"></i>
+                            </span>
+                        </button>
+
+                        <div className="field field-label is-normal" style={{ textAlign: 'center' }}>
+                            <label className="label">Field Type: <em>{fieldType}</em></label>
+                        </div>
+
+                        <Input label={`Field: ${index}`} placeholder='What Question would you like to ask?' value={question} onChange={this.setQuestion} />
+                        <br />
+                        {fieldType === 'TextInput' ?
+                            <Input placeholder='What do you expect them to say?' onChange={this.setExpectedText} /> :
+                            <OptionField options={options} updateExpectedResponse={this.setExpectedOptions} addOption={this.addOption} removeOption={this.removeOption} />}
+                    </div >
+                </div>
             </div >
         )
     }
@@ -53,26 +65,18 @@ export default connect(mapStateToProps)(EditableField);
 
 export const OptionField = ({ options, addOption, removeOption, updateExpectedResponse }) => (
     <Fragment>
-        <input placeholder='add answer with "Enter"' onKeyPress={addOption} />
+        <Input placeholder='Add answer with "Enter"' onKeyPress={addOption} />
         {!!Object.keys(options).length ? <p><strong>Select the expected response</strong></p> : null}
-        <Fragment>
+        <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', flexFlow: 'wrap' }}>
             {Object.keys(options).map(
                 (value, index) =>
-                    <div key={index}>
-                        <label>
-                            <input value={value} type="checkbox" onChange={updateExpectedResponse} />
-                            {value}
-                        </label>
+                    <div key={index} style={{ padding: '0 1rem' }}>
                         <span className="icon has-text-danger" onClick={() => removeOption(value)}>
                             <i className="fas fa-ban"></i>
                         </span>
+                        <CheckBox value={value} type="checkbox" onChange={updateExpectedResponse} />
                     </div>
             )}
-        </Fragment>
-    </Fragment>
-)
-export const TextField = ({ updateExpectedResponse }) => (
-    <Fragment>
-        <input placeholder='What do you expect them to say?' onChange={updateExpectedResponse} />
+        </div>
     </Fragment>
 )
