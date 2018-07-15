@@ -2,13 +2,17 @@ import React, { Component } from 'react';
 import ManageField from '../components/fields/ManageField'
 import EditableField from '../components/fields/EditableField'
 import { connect } from 'react-redux'
-import { addField, submit } from '../actions/newSurveyActions'
+import { updateName, updateDescription, addField, updateStartDate, updateEndDate, submit } from '../actions/newSurveyActions'
 
 const flexyStyle = { display: 'flex', justifyContent: 'space-around' }
 
 class NewSurvey extends Component {
     addField = (fieldType) =>
-        this.props.dispatch(addField(fieldType))
+        this.props.dispatch(addField(fieldType));
+    handleNameChange = ({ target: { value } }) => this.props.dispatch(updateName(value));
+    handleDescriptionChange = ({ target: { value } }) => this.props.dispatch(updateDescription(value));
+    handleStartChange = ({ target: { value } }) => this.props.dispatch(updateStartDate(value));
+    handleEndChange = ({ target: { value } }) => this.props.dispatch(updateEndDate(value));
     handleSubmit = () =>
         this.props.dispatch(submit())
     handleCancel = () =>
@@ -23,15 +27,25 @@ class NewSurvey extends Component {
                 <h2 className="subtitle">{`${fields.length} - fields`}</h2>
                 <div className="columns is-left-aligned">
                     <div className="column is-narrow">
-                        <ul>
-                            {fields.map((field, index) => (
-                                <li key={index} style={flexyStyle}>
-                                    <EditableField index={index} />
-                                </li>
-                            ))}
-                        </ul>
-                        <NewFieldButtons addField={this.addField} />
-                        <SubmitSurvey onSubmit={this.handleSubmit} onCancel={this.handleCancel} />
+                        <ol>
+                            <li><input onChange={this.handleNameChange} className="input" type="text" placeholder="What would you say..." /></li>
+                            <li><textarea onChange={this.handleDescriptionChange} className="textarea" placeholder="e.g. We want to know more about you!"></textarea>
+                            </li>
+                            <li>Author</li>
+                            <li>
+                                <ul>
+                                    {fields.map((field, index) => (
+                                        <li key={index} style={flexyStyle}>
+                                            <EditableField index={index} />
+                                        </li>
+                                    ))}
+                                </ul>
+                                <NewFieldButtons addField={this.addField} />
+                            </li>
+                            <li><input onChange={this.handleStartChange} id="start-date-picker" className="input" type="date" /></li>
+                            <li><input onChange={this.handleEndChange} id="end-date-picker" className="input" type="date" /></li>
+                            <SubmitSurvey onSubmit={this.handleSubmit} onCancel={this.handleCancel} />
+                        </ol>
                     </div>
                 </div>
             </section>
