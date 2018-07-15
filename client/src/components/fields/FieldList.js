@@ -4,23 +4,6 @@ import TextInput from './TextInput';
 import SelectFrom from './SelectFrom';
 
 export default class FieldList extends Component {
-    state = {
-        response: { fields: [] }
-    };
-
-    componentDidMount() {
-        this.callApi(this.props.surveyId)
-            .then(res => this.setState({ response: res }))
-            .catch(err => console.log(err));
-    }
-
-    callApi = async (surveyId) => {
-        const response = await fetch(`/api/survey/${surveyId}`);
-        const body = await response.json();
-        if (response.status !== 200) throw Error(body.message);
-        return body;
-    };
-
     createField = (field, key) => {
         const fieldComponent = determineField(field, key);
         const fieldComponentWithProps = React.cloneElement(
@@ -31,7 +14,7 @@ export default class FieldList extends Component {
     }
 
     render() {
-        return this.state.response.fields.map(this.createField);
+        return this.props.fields.map(this.createField);
     }
 }
 

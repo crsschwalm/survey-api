@@ -53,8 +53,8 @@ module.exports = {
         survey.save(
             err =>
                 !!err
-                    ? res.send(err)
-                    : res.json({ message: 'Survey successfully added!' })
+                    ? res.json({ message: err, success: false })
+                    : res.json({ message: 'Survey successfully added!', success: true })
         );
     }
 }

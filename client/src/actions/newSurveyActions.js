@@ -2,7 +2,6 @@ export const addField = (fieldType) => ({ type: 'ADD_FIELD', payload: { fieldTyp
 export const removeField = (fieldIndex) => ({ type: 'REMOVE_FIELD', payload: { fieldIndex } })
 export const addOption = (index, label) => ({ type: 'ADD_OPTION', payload: { index, label } })
 export const removeOption = (index, label) => ({ type: 'REMOVE_OPTION', payload: { index, label } })
-export const submit = () => ({ type: 'SUBMIT' })
 export const setQuestion = (index, question) => ({ type: 'CHANGE_QUESTION', payload: { index, question } })
 export const setExpectedText = (index, response) => ({ type: 'CHANGE_TEXT_RESPONSE', payload: { index, response } })
 export const setExpectedOptions = (index, label) => ({ type: 'CHANGE_OPTION_RESPONSE', payload: { index, label } })

@@ -4,23 +4,20 @@ import Header from './components/Header'
 import Footer from './components/Footer';
 import Home from './pages/index';
 import TakeSurvey from './pages/takeSurvey';
-import ManageSurvey from './pages/manageSurvey';
-import NewSurvey from './pages/newSurvey';
+import ManageSurvey from './pages/ManageSurvey';
 import NotFound from './pages/notFound';
 
 const Routes = () => (
     <Router>
         <Fragment>
             <Header />
-            <div className="container">
-                <Switch>
-                    <Route exact path="/" component={Home} />
-                    <Route exact path="/survey/:surveyId" component={TakeSurvey} />
-                    <Route exact path="/create" component={NewSurvey} />
-                    {/* <Route exact path="/manage/:surveyId" component={ManageSurvey} /> */}
-                    <Route component={NotFound} />
-                </Switch>
-            </div>
+            <Switch>
+                <Route exact path="/" component={Home} />
+                <Route exact path="/survey/take/:surveyId" component={TakeSurvey} />
+                <Route exact path="/survey/manage/:surveyId" component={ManageSurvey} />
+                <Route exact path="/create" component={ManageSurvey} />
+                <Route component={NotFound} />
+            </Switch>
             <Footer />
         </Fragment>
     </Router>

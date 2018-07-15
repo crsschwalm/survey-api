@@ -1,5 +1,4 @@
-const generateField = (fieldType) => ({ fieldType: fieldType, question: '', options: {}, expectedResponse: '' })
-const emptySurvey = () => ({ name: '', description: '', startDate: '', endDate: '', fields: [] });
+import formatDate from '../services/formatDate';
 
 const newSurveyReducer = (state = emptySurvey(), action) => {
     const { type, payload } = action;
@@ -21,11 +20,6 @@ const newSurveyReducer = (state = emptySurvey(), action) => {
         case 'REMOVE_OPTION': {
             const { index, label } = payload;
             delete state.fields[index].options[label];
-            return { ...state };
-        }
-        case 'SUBMIT': {
-            console.log(state);
-            alert('woohoo survey should be saved \n ' + state);
             return { ...state };
         }
         case 'CLEAR': {
@@ -72,7 +66,10 @@ const newSurveyReducer = (state = emptySurvey(), action) => {
             return state;
         }
     }
-
 }
+
+const generateField = (fieldType) => ({ fieldType: fieldType, question: '', options: {}, expectedResponse: '' })
+const emptySurvey = () => ({ name: '', description: '', author: 'cschwalm', startDate: formatDate.forInput(null), endDate: '', fields: [] });
+
 
 export default newSurveyReducer;
