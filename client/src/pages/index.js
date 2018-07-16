@@ -9,26 +9,17 @@ class Home extends Component {
         return (
             <div className="App">
                 <Intro />
-                <section className="section">
-                    <div className="container section">
-                        <div className="columns is-centered">
-                            <div className="column is-three-quarters is-narrow">
-                                <AsyncList
-                                    url="/api/survey/all"
-                                    render={({ list, isLoading }) => (
-                                        <div>
-                                            <h2 style={{ textAlign: 'left' }}>Open Surveys:</h2>
-                                            {isLoading ? <h2>Loading...</h2> :
-                                                list.map((survey, index) => (
-                                                    <SurveyCard survey={survey} key={index} />
-                                                ))}
-                                        </div>
-                                    )} />
-                            </div>
-                        </div>
-                    </div>
-                </section>
-            </div>
+                <div className="container section">
+                    <h2 style={{ textAlign: 'left' }}>Open Surveys:</h2>
+                    <AsyncList
+                        url="/api/survey/all"
+                        render={({ list, isLoading }) => isLoading ? <h2>Loading...</h2> :
+                            list.map((survey, index) => (
+                                <SurveyCard key={index} survey={survey} />
+                            ))
+                        } />
+                </div>
+            </div >
         );
     }
 }

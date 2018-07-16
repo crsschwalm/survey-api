@@ -23,10 +23,18 @@ const SurveyCard = ({ survey }) => (
                 <nav className="level is-mobile">
                     <div className="level-left">
                         <a
-                            href={`/survey/${survey._id}`}
+                            href={`/survey/take/${survey._id}`}
                             className="button is-link is-medium level-item"
                         >
                             Take Survey
+                        </a>
+                    </div>
+                    <div className="level-right">
+                        <a
+                            href={`/survey/manage/${survey._id}`}
+                            className="button is-warning is-medium level-item"
+                        >
+                            Manage Survey
                         </a>
                     </div>
                 </nav>
