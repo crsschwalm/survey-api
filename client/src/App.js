@@ -4,7 +4,7 @@ import Header from './components/Header'
 import Footer from './components/Footer';
 import Home from './pages/index';
 import TakeSurvey from './pages/takeSurvey';
-import ManageSurvey from './pages/ManageSurvey';
+import ManageSurvey from './pages/manageSurvey';
 import NotFound from './pages/notFound';
 
 const Routes = () => (

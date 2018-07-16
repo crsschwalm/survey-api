@@ -1,6 +1,6 @@
 import { combineReducers } from 'redux';
-import newSurveyReducer from './newSurveyReducer';
+import manageSurveyReducer from './manageSurveyReducer';
 
-const Reducers = combineReducers({ newSurvey: newSurveyReducer, })
+const Reducers = combineReducers({ manageSurvey: manageSurveyReducer, })
 
 export default Reducers;

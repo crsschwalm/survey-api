@@ -1,6 +1,6 @@
 import formatDate from '../services/formatDate';
 
-const newSurveyReducer = (state = emptySurvey(), action) => {
+const manageSurveyReducer = (state = emptySurvey(), action) => {
     const { type, payload } = action;
     switch (type) {
         case 'ADD_FIELD': {
@@ -23,8 +23,7 @@ const newSurveyReducer = (state = emptySurvey(), action) => {
             return { ...state };
         }
         case 'CLEAR': {
-            state = emptySurvey()
-            return { ...state }
+            return { ...state, ...emptySurvey() }
         }
         case 'CHANGE_QUESTION': {
             const { index, question } = payload;
@@ -37,30 +36,32 @@ const newSurveyReducer = (state = emptySurvey(), action) => {
             return { ...state };
         }
         case 'CHANGE_OPTION_RESPONSE': {
-            const { index, label } = payload;
-            const isExpected = state.fields[index].options[label];
-            state.fields[index].options[label] = !isExpected;
+            const { index, key } = payload;
+            const isExpected = state.fields[index].options[key];
+            state.fields[index].options[key] = !isExpected;
             return { ...state };
         }
         case 'CHANGE_NAME': {
             const { input } = payload;
-            state.name = input;
-            return { ...state };
+            return { ...state, name: input };
         }
         case 'CHANGE_DESCRIPTION': {
             const { input } = payload;
-            state.description = input;
-            return { ...state };
+            return { ...state, description: input };
         }
         case 'CHANGE_START_DATE': {
             const { input } = payload;
-            state.startDate = input;
-            return { ...state };
+            return { ...state, startDate: input };
         }
         case 'CHANGE_END_DATE': {
             const { input } = payload;
-            state.endDate = input;
-            return { ...state };
+            return { ...state, endDate: input };
+        }
+        case 'FETCH_SURVEY_SUCCESS': {
+            const { response } = payload;
+            const startDate = formatDate.forInput(response.startDate)
+            const endDate = formatDate.forInput(response.endDate)
+            return { ...state, ...response, startDate, endDate };
         }
         default: {
             return state;
@@ -68,8 +69,20 @@ const newSurveyReducer = (state = emptySurvey(), action) => {
     }
 }
 
-const generateField = (fieldType) => ({ fieldType: fieldType, question: '', options: {}, expectedResponse: '' })
-const emptySurvey = () => ({ name: '', description: '', author: 'cschwalm', startDate: formatDate.forInput(null), endDate: '', fields: [] });
+const generateField = (fieldType) => ({
+    fieldType: fieldType,
+    question: '',
+    options: {},
+    expectedResponse: ''
+})
+const emptySurvey = () => ({
+    name: '',
+    description: '',
+    author: 'cschwalm',
+    startDate: formatDate.forInput(null),
+    endDate: '',
+    fields: []
+});
 
 
-export default newSurveyReducer;
+export default manageSurveyReducer;

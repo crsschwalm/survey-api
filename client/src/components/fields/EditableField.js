@@ -2,7 +2,7 @@ import React, { Component, Fragment } from 'react';
 import { connect } from 'react-redux'
 import Input from '../form/Input';
 import EditableCheckBox from '../form/EditableCheckBox'
-import { removeField, setQuestion, addOption, removeOption, setExpectedText, setExpectedOptions } from '../../actions/newSurveyActions'
+import { removeField, setQuestion, addOption, removeOption, setExpectedText, setExpectedOptions } from '../../actions/manageSurveyActions'
 
 class EditableField extends Component {
     render() {
@@ -46,27 +46,28 @@ const mapDispatchToProps = (dispatch, props) => ({
         }
     },
     removeOption: (value) => dispatch(removeOption(props.index, value)),
-    setExpectedOptions: ({ target }) => dispatch(setExpectedOptions(props.index, target.value)),
+    setExpectedOptions: ({ target }) => dispatch(setExpectedOptions(props.index, target.title)),
     setExpectedText: ({ target }) => dispatch(setExpectedText(props.index, target.value))
 }
 )
 
 const mapStateToProps = (state, ownProps) => {
-    const { question, options, expectedResponse, fieldType } = state.newSurvey.fields[ownProps.index]
-    return { question: question, options: { ...options }, expectedResponse: expectedResponse, fieldType: fieldType };
-};
+    const { options } = state.manageSurvey.fields[ownProps.index];
+    return { ...state.manageSurvey.fields[ownProps.index], ...options }
+}
+
 
 export default connect(mapStateToProps, mapDispatchToProps)(EditableField);
 
 export const OptionField = ({ options, addOption, removeOption, updateExpectedResponse }) => (
     <Fragment>
-        <Input placeholder="e.g. Option 1" help='Add answer with "Enter"' onKeyPress={addOption} />
+        <Input placeholder="e.g. Choose this option" help='Add answer with "Enter"' onKeyPress={addOption} />
         {!!Object.keys(options).length ? <p><strong>Select the expected response</strong></p> : null}
         <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', flexFlow: 'wrap' }}>
-            {Object.keys(options).map(
-                (value, index) =>
+            {Object.entries(options).map(
+                ([key, value], index) =>
                     <div key={index} style={{ padding: '0 1rem' }}>
-                        <EditableCheckBox value={value} type="EditableCheckBox" onChange={updateExpectedResponse} remove={() => removeOption(value)} />
+                        <EditableCheckBox title={key} value={value} type="EditableCheckBox" onChange={updateExpectedResponse} remove={() => removeOption(key)} />
                     </div>
             )}
         </div>

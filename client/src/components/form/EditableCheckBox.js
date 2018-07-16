@@ -1,11 +1,10 @@
 import React from 'react';
 
-const EditableCheckBox = ({ value, onChange, remove }) => (
-    <div className="tags has-addons">
-        <a className="tag"> <input style={{ verticalAlign: 'middle' }} value={value} type="checkbox" onChange={onChange} /></a>
-
-        <span className="tag is-link">{value}</span>
-        <a className="tag is-delete" onClick={remove}></a>
+const EditableCheckBox = ({ title, value, onChange, remove }) => (
+    <div className="tags has-addons" style={{ paddingTop: '.5rem' }}>
+        <a className="tag"><input title={title} checked={value} type="checkbox" onChange={onChange} /></a>
+        <span className="tag is-link">{title}</span>
+        <span className="tag is-delete" onClick={remove}></span>
     </div>
 )
 

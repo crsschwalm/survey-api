@@ -1,4 +1,4 @@
-export const validateNewSurvey = (form) => {
+export const validateSurveyForm = (form) => {
     const isSurveyOptionValid = Object.values(form).every(isNotEmpty);
     const invalidOptions = form.fields.filter(isInvalidField)
     const isFieldOptionValid = invalidOptions.length === 0;

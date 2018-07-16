@@ -8,11 +8,35 @@ import DatePicker from '../components/form/DatePicker'
 import HeadLine from '../components/form/HeadLine'
 import ReadOnly from '../components/form/ReadOnly'
 import { connect } from 'react-redux'
-import { validateNewSurvey } from '../services/validationService';
-import { updateName, updateDescription, addField, updateStartDate, updateEndDate, clear } from '../actions/newSurveyActions';
+import { validateSurveyForm } from '../services/validationService';
+import { updateName, updateDescription, addField, updateStartDate, updateEndDate, clear, fetchSurveySuccess } from '../actions/manageSurveyActions';
 
-class NewSurvey extends Component {
-    validate = () => validateNewSurvey(this.props.newSurvey)
+class ManageSurvey extends Component {
+    componentDidMount() {
+        const { match: { params } } = this.props;
+        !!params.surveyId ? this.getSurvey(params.surveyId) : this.props.clear();
+    }
+
+    getSurvey = async (id) => {
+        const response = await fetch(`/api/survey/${id}`);
+        const body = await response.json();
+        response.status !== 200 && console.error(body.message);
+        return this.props.fetchSurveySuccess(body);
+    }
+
+    handleSubmit = async () => {
+        const response = await fetch('/api/survey/save', {
+            method: 'POST',
+            body: JSON.stringify(this.props.manageSurvey),
+            headers: {
+                'Content-Type': 'application/json'
+            }
+        })
+        console.log(response)
+        return response.success ? this.props.clear() : console.error(response.message);
+    }
+
+    validate = () => validateSurveyForm(this.props.manageSurvey)
 
     render() {
         const {
@@ -21,7 +45,6 @@ class NewSurvey extends Component {
             addField,
             handleStartChange,
             handleEndChange,
-            handleSubmit,
             handleCancel
         } = this.props;
         const {
@@ -31,7 +54,7 @@ class NewSurvey extends Component {
             fields,
             startDate,
             endDate
-        } = this.props.newSurvey;
+        } = this.props.manageSurvey;
         return (
             <section className="container section">
                 <HeadLine heading='Create New Survey' subheading={`Field count: ${fields.length}`} />
@@ -42,29 +65,24 @@ class NewSurvey extends Component {
                 <NewFieldButtons addField={addField} />
                 <DatePicker label='Start Date' value={startDate} onChange={handleStartChange} />
                 <DatePicker label='End Date' value={endDate} onChange={handleEndChange} />
-                <SubmitForm onSubmit={handleSubmit} onCancel={handleCancel} isValid={this.validate()} />
+                <SubmitForm onSubmit={this.handleSubmit} onCancel={handleCancel} isValid={true} />
             </section>
         );
     }
 }
 
-const mapStateToProps = state => ({ newSurvey: state.newSurvey })
+const mapStateToProps = state => ({ manageSurvey: state.manageSurvey })
 
 const mapDispatchToProps = dispatch => ({
+    fetchSurveySuccess: (response) => dispatch(fetchSurveySuccess(response)),
     handleNameChange: ({ target: { value } }) => dispatch(updateName(value)),
     handleDescriptionChange: ({ target: { value } }) => dispatch(updateDescription(value)),
     addField: (fieldType) => dispatch(addField(fieldType)),
     handleStartChange: ({ target: { value } }) => dispatch(updateStartDate(value)),
     handleEndChange: ({ target: { value } }) => dispatch(updateEndDate(value)),
-    handleCancel: () => window.confirm("You are about to clear the current Survey") && dispatch(clear()),
-    handleSubmit: async () => {
-        const response = await fetch('/api/survey/save', {
-            method: 'POST',
-            data: this.props.newSurvey
-        })
-        response.success && dispatch(clear());
-    }
+    clear: () => dispatch(clear()),
+    handleCancel: () => window.confirm("You are about to clear the current Survey") && dispatch(clear())
 }
 )
 
-export default connect(mapStateToProps, mapDispatchToProps)(NewSurvey);
+export default connect(mapStateToProps, mapDispatchToProps)(ManageSurvey);
