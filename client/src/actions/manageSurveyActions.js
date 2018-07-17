@@ -9,5 +9,66 @@ export const updateName = (input) => ({ type: 'CHANGE_NAME', payload: { input } 
 export const updateDescription = (input) => ({ type: 'CHANGE_DESCRIPTION', payload: { input } })
 export const updateStartDate = (input) => ({ type: 'CHANGE_START_DATE', payload: { input } })
 export const updateEndDate = (input) => ({ type: 'CHANGE_END_DATE', payload: { input } })
-export const clear = () => ({ type: 'CLEAR' })
-export const fetchSurveySuccess = (response) => ({ type: 'FETCH_SURVEY_SUCCESS', payload: { response } })
+export const clearForm = () => ({ type: 'CLEAR_SURVEY' })
+
+export const fetchStarted = () => ({ type: 'FETCH_STARTED' })
+export const fetchSuccess = (response) => ({ type: 'FETCH_SUCCESS', payload: { response } })
+export const fetchError = (error) => ({ type: 'FETCH_ERROR', payload: { error } })
+
+export const createStarted = () => ({ type: 'CREATE_STARTED' })
+export const createSuccess = (response) => ({ type: 'CREATE_SUCCESS', payload: { response } })
+export const createError = (error) => ({ type: 'CREATE_ERROR', payload: { error } })
+
+export const updateStarted = () => ({ type: 'UPDATE_STARTED' })
+export const updateSuccess = (response) => ({ type: 'UPDATE_SUCCESS', payload: { response } })
+export const updateError = (error) => ({ type: 'UPDATE_ERROR', payload: { error } })
+
+export const deleteStarted = () => ({ type: 'DELETE_STARTED' })
+export const deleteSuccess = (response) => ({ type: 'DELETE_SUCCESS', payload: { response } })
+export const deleteError = (error) => ({ type: 'DELETE_ERROR', payload: { error } })
+
+export const fetchSurvey = (id) =>
+    async dispatch => {
+        dispatch(fetchStarted());
+        const response = await fetch(`/api/survey/${id}`);
+        const body = await response.json();
+        return !!body ? dispatch(fetchSuccess(body)) : dispatch(fetchError(response));
+    }
+
+
+export const deleteSurvey = () => async (dispatch, getState) => {
+    dispatch(deleteStarted());
+    const response = await fetch(`/api/survey/delete/${getState()._id}`, {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json'
+        }
+    })
+    return response.status === 200 ? dispatch(deleteSuccess()) : dispatch(deleteError());
+}
+
+
+export const createSurvey = () => async (dispatch, getState) => {
+    dispatch(createStarted());
+    const response = await fetch('/api/survey/save', {
+        method: 'POST',
+        body: JSON.stringify(getState()),
+        headers: {
+            'Content-Type': 'application/json'
+        }
+    })
+    return response.status === 200 ? dispatch(createStarted()) : dispatch(createStarted());;
+}
+
+
+export const updateSurvey = () => async (dispatch, getState) => {
+    dispatch(updateStarted());
+    const response = await fetch(`/api/survey/update/${getState()._id}`, {
+        method: 'POST',
+        body: JSON.stringify(getState()),
+        headers: {
+            'Content-Type': 'application/json'
+        }
+    })
+    return response.status === 200 ? dispatch(updateStarted()) : dispatch(updateStarted());;
+}

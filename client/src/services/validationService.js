@@ -1,8 +1,9 @@
 export const validateSurveyForm = (form) => {
-    const isSurveyOptionValid = Object.values(form).every(isNotEmpty);
+    const requiredFields = [form.name, form.description, form.endDate, form.fields]
+    const areRequiredFieldsValid = requiredFields.every(isNotEmpty);
     const invalidOptions = form.fields.filter(isInvalidField)
     const isFieldOptionValid = invalidOptions.length === 0;
-    return isSurveyOptionValid && isFieldOptionValid;
+    return areRequiredFieldsValid && isFieldOptionValid;
 };
 
 export const validateSurveyAnswers = (answers) => isNotEmpty(Object.values(answers))

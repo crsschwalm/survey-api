@@ -22,7 +22,7 @@ const manageSurveyReducer = (state = emptySurvey(), action) => {
             delete state.fields[index].options[label];
             return { ...state };
         }
-        case 'CLEAR': {
+        case 'CLEAR_SURVEY': {
             return { ...state, ...emptySurvey() }
         }
         case 'CHANGE_QUESTION': {
@@ -57,11 +57,48 @@ const manageSurveyReducer = (state = emptySurvey(), action) => {
             const { input } = payload;
             return { ...state, endDate: input };
         }
-        case 'FETCH_SURVEY_SUCCESS': {
+        case 'FETCH_STARTED': {
+            return { ...state, loading: true };
+        }
+        case 'FETCH_SUCCESS': {
             const { response } = payload;
             const startDate = formatDate.forInput(response.startDate)
             const endDate = formatDate.forInput(response.endDate)
-            return { ...state, ...response, startDate, endDate };
+            return { ...state, ...response, loading: false, startDate, endDate };
+        }
+        case 'FETCH_ERROR': {
+            const { error } = payload;
+            return { ...emptySurvey(), error: error, loading: false };
+        }
+        case 'CREATE_STARTED': {
+            return { ...state, loading: true };
+        }
+        case 'CREATE_SUCCESS': {
+            return { ...emptySurvey(), loading: false };
+        }
+        case 'CREATE_ERROR': {
+            const { error } = payload;
+            return { ...state, error: error, loading: false, };
+        }
+        case 'UPDATE_STARTED': {
+            return { ...state, loading: true };
+        }
+        case 'UPDATE_SUCCESS': {
+            return { ...emptySurvey(), loading: false };
+        }
+        case 'UPDATE_ERROR': {
+            const { error } = payload;
+            return { ...state, error: error, loading: false, };
+        }
+        case 'DELETE_STARTED': {
+            return { ...state, loading: true };
+        }
+        case 'DELETE_SUCCESS': {
+            return { ...emptySurvey(), loading: false };
+        }
+        case 'DELETE_ERROR': {
+            const { error } = payload;
+            return { ...state, error: error, loading: false, };
         }
         default: {
             return state;
@@ -76,12 +113,15 @@ const generateField = (fieldType) => ({
     expectedResponse: ''
 })
 const emptySurvey = () => ({
+    _id: undefined,
     name: '',
     description: '',
     author: 'cschwalm',
-    startDate: formatDate.forInput(null),
+    startDate: formatDate.forInput(),
     endDate: '',
-    fields: []
+    fields: [],
+    loading: false,
+    error: null
 });
 
 
