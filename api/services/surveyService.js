@@ -33,7 +33,7 @@ module.exports = {
     updateSurveyById: (req, res) => {
         const surveyId = req.params.id;
         Survey.findByIdAndUpdate(
-            surveyId,
+            surveyId, { $set: req.body }, { new: true },
             (err, survey) => (!!err ? res.send(err) : res.json(survey))
         );
     },

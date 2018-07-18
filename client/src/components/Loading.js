@@ -8,7 +8,7 @@ const Loading = ({ isLoading }) =>
         height: '100%',
         width: '100%',
         top: 0,
-        bottom: 0,
+        left: 0,
         backgroundColor: '#4D6777',
         display: 'flex',
         alignItems: 'center',

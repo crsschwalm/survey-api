@@ -38,7 +38,7 @@ export const fetchSurvey = (id) =>
 
 export const deleteSurvey = () => async (dispatch, getState) => {
     dispatch(deleteStarted());
-    const response = await fetch(`/api/survey/delete/${getState()._id}`, {
+    const response = await fetch(`/api/survey/delete/${getState().manageSurvey._id}`, {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json'
@@ -52,7 +52,7 @@ export const createSurvey = () => async (dispatch, getState) => {
     dispatch(createStarted());
     const response = await fetch('/api/survey/save', {
         method: 'POST',
-        body: JSON.stringify(getState()),
+        body: JSON.stringify(getState().manageSurvey),
         headers: {
             'Content-Type': 'application/json'
         }
@@ -63,9 +63,9 @@ export const createSurvey = () => async (dispatch, getState) => {
 
 export const updateSurvey = () => async (dispatch, getState) => {
     dispatch(updateStarted());
-    const response = await fetch(`/api/survey/update/${getState()._id}`, {
-        method: 'POST',
-        body: JSON.stringify(getState()),
+    const response = await fetch(`/api/survey/update/${getState().manageSurvey._id}`, {
+        method: 'PUT',
+        body: JSON.stringify(getState().manageSurvey),
         headers: {
             'Content-Type': 'application/json'
         }

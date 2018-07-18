@@ -41,13 +41,13 @@ class ManageSurvey extends Component {
                 <Loading isLoading={loading} />
                 <HeadLine heading='Create New Survey' subheading={`Field count: ${fields.length}`}>
                     {!!_id ?
-                        <span
+                        <button
                             style={{ position: 'absolute', top: '3rem', right: '1.5rem' }}
                             onClick={deleteSurvey}
                             className="tag is-danger is-large">
                             Delete
-                            <a className="delete"></a>
-                        </span> :
+                            <span className="delete"></span>
+                        </button> :
                         null}
                 </HeadLine>
                 <ReadOnly label="Author" value={author} />
@@ -71,12 +71,17 @@ const mapDispatchToProps = dispatch => ({
     addField: (fieldType) => dispatch(addField(fieldType)),
     handleStartChange: ({ target: { value } }) => dispatch(updateStartDate(value)),
     handleEndChange: ({ target: { value } }) => dispatch(updateEndDate(value)),
-    clearForm: () => dispatch(clearForm()),
-    handleCancel: () => window.confirm("You are about to clear the current Survey") && dispatch(clearForm()),
+    clearForm: () => dispatch(clearForm()) && goHome(),
+    handleCancel: () => getConfirmation() && dispatch(clearForm()),
     fetchSurvey: (id) => dispatch(fetchSurvey(id)),
-    createSurvey: () => dispatch(createSurvey()),
-    updateSurvey: () => dispatch(updateSurvey()),
-    deleteSurvey: () => dispatch(deleteSurvey()),
+    createSurvey: () => dispatch(createSurvey()) && goHome(),
+    updateSurvey: () => dispatch(updateSurvey()) && goHome(),
+    deleteSurvey: () => getConfirmation()
+        && dispatch(deleteSurvey())
+        && goHome()
 })
+
+const goHome = () => window.location.replace('/');
+const getConfirmation = () => window.confirm("You sure you wanna do that?");
 
 export default connect(mapStateToProps, mapDispatchToProps)(ManageSurvey);

@@ -6,7 +6,7 @@ import { removeField, setQuestion, addOption, removeOption, setExpectedText, set
 
 class EditableField extends Component {
     render() {
-        const { fieldType, options, question, index } = this.props;
+        const { fieldType, options, question, expectedResponse, index } = this.props;
         const { removeField, setQuestion, addOption, removeOption, setExpectedOptions, setExpectedText } = this.props;
         return (
             <div className="field is-horizontal">
@@ -27,7 +27,7 @@ class EditableField extends Component {
                         <Input label={`Field: ${index}`} placeholder='What Question would you like to ask?' value={question} onChange={setQuestion} />
                         <br />
                         {fieldType === 'TextInput' ?
-                            <Input placeholder='What do you expect them to say?' onChange={setExpectedText} /> :
+                            <Input placeholder='What do you expect them to say?' onChange={setExpectedText} value={expectedResponse} /> :
                             <OptionField options={options} updateExpectedResponse={setExpectedOptions} addOption={addOption} removeOption={removeOption} />}
                     </div >
                 </div>
