@@ -4,7 +4,8 @@ import Header from './components/Header'
 import Footer from './components/Footer';
 import Home from './pages/index';
 import TakeSurvey from './pages/takeSurvey';
-import ManageSurvey from './pages/manageSurvey';
+import Manage from './pages/manage';
+import Create from './pages/create';
 import NotFound from './pages/notFound';
 
 const Routes = () => (
@@ -14,8 +15,8 @@ const Routes = () => (
             <Switch>
                 <Route exact path="/" component={Home} />
                 <Route exact path="/survey/take/:surveyId" component={TakeSurvey} />
-                <Route exact path="/survey/manage/:surveyId" component={ManageSurvey} />
-                <Route exact path="/create" component={ManageSurvey} />
+                <Route exact path="/survey/manage/:surveyId" component={Manage} />
+                <Route exact path="/create" component={Create} />
                 <Route component={NotFound} />
             </Switch>
             <Footer />

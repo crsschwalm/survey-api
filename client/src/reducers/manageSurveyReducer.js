@@ -22,9 +22,6 @@ const manageSurveyReducer = (state = emptySurvey(), action) => {
             delete state.fields[index].options[label];
             return { ...state };
         }
-        case 'CLEAR_SURVEY': {
-            return { ...state, ...emptySurvey() }
-        }
         case 'CHANGE_QUESTION': {
             const { index, question } = payload;
             state.fields[index].question = question;
@@ -56,6 +53,9 @@ const manageSurveyReducer = (state = emptySurvey(), action) => {
         case 'CHANGE_END_DATE': {
             const { input } = payload;
             return { ...state, endDate: input };
+        }
+        case 'CLEAR_SURVEY': {
+            return { ...state, ...emptySurvey() }
         }
         case 'FETCH_STARTED': {
             return { ...state, loading: true };

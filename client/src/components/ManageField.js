@@ -1,10 +1,10 @@
 import React, { Component, Fragment } from 'react';
 import { connect } from 'react-redux'
-import Input from '../form/Input';
-import EditableCheckBox from '../form/EditableCheckBox'
-import { removeField, setQuestion, addOption, removeOption, setExpectedText, setExpectedOptions } from '../../actions/manageSurveyActions'
+import Input from './form/Input';
+import EditableCheckBox from './form/EditableCheckBox'
+import { removeField, setQuestion, addOption, removeOption, setExpectedText, setExpectedOptions } from '../actions/manageSurveyActions'
 
-class EditableField extends Component {
+class ManageField extends Component {
     render() {
         const { fieldType, options, question, expectedResponse, index } = this.props;
         const { removeField, setQuestion, addOption, removeOption, setExpectedOptions, setExpectedText } = this.props;
@@ -57,7 +57,7 @@ const mapStateToProps = (state, ownProps) => {
 }
 
 
-export default connect(mapStateToProps, mapDispatchToProps)(EditableField);
+export default connect(mapStateToProps, mapDispatchToProps)(ManageField);
 
 export const OptionField = ({ options, addOption, removeOption, updateExpectedResponse }) => (
     <Fragment>
