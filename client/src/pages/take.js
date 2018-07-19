@@ -3,7 +3,7 @@ import { validateSurveyAnswers } from '../services/validationService'
 import SubmitForm from '../components/form/SubmitForm'
 import Survey from '../components/Survey'
 
-export default class TakeSurvey extends Component {
+export default class Take extends Component {
     state = {
         answers: {}
     };

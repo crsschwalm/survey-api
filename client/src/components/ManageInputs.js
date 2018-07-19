@@ -5,16 +5,14 @@ import ReadOnly from '../components/form/ReadOnly'
 import { connect } from 'react-redux'
 import { updateName, updateDescription } from '../actions/manageSurveyActions';
 
-
 const ManageInputs = ({ handleNameChange,
     handleDescriptionChange,
     manageSurvey: { name, description, author } }) => (
-
-        < Fragment >
+        <Fragment>
             <ReadOnly label="Author" value={author} />
             <Input label="Survey Name" value={name} placeholder="What would you say..." onChange={handleNameChange} />
             <TextArea label="Description" value={description} onChange={handleDescriptionChange} placeholder="e.g. We want to know more about you!" />
-        </Fragment >
+        </Fragment>
     );
 
 const mapStateToProps = state => ({ manageSurvey: state.manageSurvey })
