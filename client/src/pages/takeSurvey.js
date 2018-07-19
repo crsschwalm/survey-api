@@ -1,21 +1,30 @@
 import React, { Component } from 'react';
+import { validateSurveyAnswers } from '../services/validationService'
+import SubmitForm from '../components/form/SubmitForm'
+import Survey from '../components/Survey'
 
-import logo from './logo.svg';
-
-import './index.css';
-
-class TakeSurvey extends Component {
+export default class TakeSurvey extends Component {
+    state = {
+        answers: {}
+    };
+    validate = () => validateSurveyAnswers(this.state.answers)
+    handleFieldChange = (fieldId, answer) => {
+        const answers = this.state.answers;
+        answers[fieldId] = answer;
+        this.setState({ answers: answers });
+    }
+    handleSubmit = () => {
+        const { match: { params } } = this.props;
+        alert(`Survey: ${params.surveyId} \n ${this.state.answers}`)
+    };
+    handleCancel = () => alert('boohoo canceled!');
     render() {
+        const { match: { params } } = this.props;
         return (
-            <div className="App">
-                <header className="App-header">
-                    <img src={logo} className="App-logo" alt="logo" />
-                    <h1 className="App-title">Time to take a survey</h1>
-                </header>
-                <p className="App-intro">Heres a short description</p>
-            </div>
-        );
+            <section className="container section">
+                <Survey surveyId={params.surveyId} onFieldChange={this.handleFieldChange} />
+                <SubmitForm onSubmit={this.handleSubmit} onCancel={this.handleCancel} isValid={this.validate()} />
+            </section>
+        )
     }
 }
-
-export default TakeSurvey;

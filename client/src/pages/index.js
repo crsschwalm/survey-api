@@ -1,40 +1,35 @@
-import React, { Component } from 'react';
-
+import React from 'react';
 import logo from './logo.svg';
-
 import './index.css';
+import SurveyCard from '../components/SurveyCard';
+import AsyncList from '../components/AsyncList'
+import Loading from '../components/Loading';
+import HeadLine from '../components/form/HeadLine';
 
-class Home extends Component {
-    state = {
-        response: ''
-    };
+const Home = () => (
+    <div className="App">
+        <ReactSpinny />
+        <div className="container section">
+            <HeadLine heading='Check out a new Survey!' subheading={`Welcome ${'guest'}`} />
+            <AsyncList
+                url="/api/survey/all"
+                render={({ list, isLoading }) => isLoading ? <Loading /> :
+                    list.map((survey, index) => (
+                        <SurveyCard key={index} survey={survey} />
+                    ))
+                } />
+        </div>
+    </div >
+);
 
-    componentDidMount() {
-        this.callApi()
-            .then(res => this.setState({ response: res.express }))
-            .catch(err => console.log(err));
-    }
 
-    callApi = async () => {
-        const response = await fetch('/api/surveys');
-        const body = await response.json();
-
-        if (response.status !== 200) throw Error(body.message);
-
-        return body;
-    };
-
-    render() {
-        return (
-            <div className="App">
-                <header className="App-header">
-                    <img src={logo} className="App-logo" alt="logo" />
-                    <h1 className="App-title">Welcome to React</h1>
-                </header>
-                <p className="App-intro">{this.state.response}</p>
-            </div>
-        );
-    }
-}
+const ReactSpinny = () => (
+    <header className="App-header">
+        <img className="App-logo" src={logo} alt="React Icon" />
+        <img className="App-logo" src="https://blobscdn.gitbook.com/v0/b/gitbook-28427.appspot.com/o/spaces%2F-L5K1I1WsuQMZ8ecEuWg%2Favatar.png?generation=1518623866348435&amp;alt=media" alt="Redux Icon" />
+        <h1 className="App-title">React + Redux</h1>
+        <h3>...and more</h3>
+    </header>
+)
 
 export default Home;
