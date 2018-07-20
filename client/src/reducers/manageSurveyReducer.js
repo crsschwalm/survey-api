@@ -22,35 +22,35 @@ const manageSurveyReducer = (state = emptySurvey(), action) => {
             delete state.fields[index].options[label];
             return { ...state };
         }
-        case 'CHANGE_QUESTION': {
+        case 'SET_QUESTION': {
             const { index, question } = payload;
             state.fields[index].question = question;
             return { ...state };
         }
-        case 'CHANGE_TEXT_RESPONSE': {
+        case 'SET_TEXT_RESPONSE': {
             const { index, response } = payload;
             state.fields[index].expectedResponse = response;
             return { ...state };
         }
-        case 'CHANGE_OPTION_RESPONSE': {
+        case 'SET_OPTION_RESPONSE': {
             const { index, key } = payload;
             const isExpected = state.fields[index].options[key];
             state.fields[index].options[key] = !isExpected;
             return { ...state };
         }
-        case 'CHANGE_NAME': {
+        case 'SET_NAME': {
             const { input } = payload;
             return { ...state, name: input };
         }
-        case 'CHANGE_DESCRIPTION': {
+        case 'SET_DESCRIPTION': {
             const { input } = payload;
             return { ...state, description: input };
         }
-        case 'CHANGE_START_DATE': {
+        case 'SET_START_DATE': {
             const { input } = payload;
             return { ...state, startDate: input };
         }
-        case 'CHANGE_END_DATE': {
+        case 'SET_END_DATE': {
             const { input } = payload;
             return { ...state, endDate: input };
         }

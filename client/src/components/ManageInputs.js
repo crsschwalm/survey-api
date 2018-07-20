@@ -3,23 +3,23 @@ import Input from '../components/form/Input'
 import TextArea from '../components/form/TextArea'
 import ReadOnly from '../components/form/ReadOnly'
 import { connect } from 'react-redux'
-import { updateName, updateDescription } from '../actions/manageSurveyActions';
+import { setName, setDescription } from '../actions/manageSurveyActions';
 
-const ManageInputs = ({ handleNameChange,
-    handleDescriptionChange,
+const ManageInputs = ({ setName,
+    setDescription,
     manageSurvey: { name, description, author } }) => (
         <Fragment>
             <ReadOnly label="Author" value={author} />
-            <Input label="Survey Name" value={name} placeholder="What would you say..." onChange={handleNameChange} />
-            <TextArea label="Description" value={description} onChange={handleDescriptionChange} placeholder="e.g. We want to know more about you!" />
+            <Input label="Survey Name" value={name} placeholder="What would you say..." onChange={setName} />
+            <TextArea label="Description" value={description} onChange={setDescription} placeholder="e.g. We want to know more about you!" />
         </Fragment>
     );
 
 const mapStateToProps = state => ({ manageSurvey: state.manageSurvey })
 
 const mapDispatchToProps = dispatch => ({
-    handleNameChange: ({ target: { value } }) => dispatch(updateName(value)),
-    handleDescriptionChange: ({ target: { value } }) => dispatch(updateDescription(value))
+    setName: ({ target: { value } }) => dispatch(setName(value)),
+    setDescription: ({ target: { value } }) => dispatch(setDescription(value))
 })
 
 export default connect(mapStateToProps, mapDispatchToProps)(ManageInputs);

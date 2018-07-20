@@ -2,21 +2,21 @@ import React, { Fragment } from 'react';
 import DatePicker from '../components/form/DatePicker'
 import { connect } from 'react-redux'
 import {
-    updateStartDate, updateEndDate
+    setStartDate, setEndDate
 } from '../actions/manageSurveyActions';
 
 
-const ManageInputs = ({ handleStartChange, handleEndChange, manageSurvey: { startDate, endDate } }) => (
+const ManageInputs = ({ setStartDate, setEndDate, manageSurvey: { startDate, endDate } }) => (
     <Fragment>
-        <DatePicker label='Start Date' value={startDate} onChange={handleStartChange} />
-        <DatePicker label='End Date' value={endDate} onChange={handleEndChange} />
+        <DatePicker label='Start Date' value={startDate} onChange={setStartDate} />
+        <DatePicker label='End Date' value={endDate} onChange={setEndDate} />
     </Fragment>
 );
 const mapStateToProps = state => ({ manageSurvey: state.manageSurvey })
 
 const mapDispatchToProps = dispatch => ({
-    handleStartChange: ({ target: { value } }) => dispatch(updateStartDate(value)),
-    handleEndChange: ({ target: { value } }) => dispatch(updateEndDate(value)),
+    setStartDate: ({ target: { value } }) => dispatch(setStartDate(value)),
+    setEndDate: ({ target: { value } }) => dispatch(setEndDate(value)),
 })
 
 export default connect(mapStateToProps, mapDispatchToProps)(ManageInputs);
