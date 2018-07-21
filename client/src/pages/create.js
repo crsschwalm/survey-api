@@ -1,13 +1,13 @@
 import React, { Component } from 'react';
 import HeadLine from '../components/form/HeadLine'
 import { connect } from 'react-redux'
-import { clearForm, createSurvey } from '../actions/manageSurveyActions';
+import { clearSurvey, createSurvey } from '../actions/manageSurveyActions';
 import ManageSurvey from '../components/ManageSurvey';
 
 
 class Create extends Component {
-    componentDidMount() {
-        this.props.clearForm();
+    componentWillUnmount() {
+        this.props.clearSurvey()
     }
     render() {
         const { createSurvey, manageSurvey: { fields } } = this.props;
@@ -23,7 +23,7 @@ class Create extends Component {
 const mapStateToProps = state => ({ manageSurvey: state.manageSurvey })
 
 const mapDispatchToProps = dispatch => ({
-    clearForm: () => dispatch(clearForm()),
+    clearSurvey: () => dispatch(clearSurvey()),
     createSurvey: () => dispatch(createSurvey()) && goHome()
 })
 

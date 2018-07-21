@@ -7,7 +7,7 @@ const ManageInputField = ({ setExpectedText, expectedResponse }) =>
     <Input label="Answer" placeholder='What do you expect them to say?' onChange={setExpectedText} value={expectedResponse} />
 
 const mapDispatchToProps = (dispatch, ownProps) => ({
-    setExpectedText: ({ target }) => dispatch(setExpectedText(ownProps.fieldIndex, target.value))
+    setExpectedText: value => dispatch(setExpectedText(ownProps.fieldIndex, value))
 })
 
 const mapStateToProps = (state, ownProps) => {

@@ -22,6 +22,7 @@ Router.put(
 Router.get('/survey/author/:author', surveyService.findAllSurveysByAuthor);
 Router.get('/survey/all', surveyService.findAllSurveys);
 Router.get('/survey/:id', surveyService.findSurveyById);
+Router.get('/survey/to-take/:id', surveyService.findSurveyToTakeById);
 //Authentication
 // Router.post('/register', register);
 // Router.post('/login', login);

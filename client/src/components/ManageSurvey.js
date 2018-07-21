@@ -1,7 +1,7 @@
 import React from 'react';
 import { connect } from 'react-redux'
 import { validateSurveyForm } from '../services/validationService';
-import { clearForm } from '../actions/manageSurveyActions';
+import { clearSurvey } from '../actions/manageSurveyActions';
 import Loading from '../components/Loading'
 import ManageInputs from '../components/ManageInputs'
 import ManageFieldList from '../components/ManageFieldList'
@@ -21,8 +21,8 @@ const ManageSurvey = ({ manageSurvey, onSubmit, handleCancel }) => (
 const mapStateToProps = state => ({ manageSurvey: state.manageSurvey })
 
 const mapDispatchToProps = dispatch => ({
-    clearForm: () => dispatch(clearForm()),
-    handleCancel: () => getConfirmation() && dispatch(clearForm()) && goHome()
+    clearSurvey: () => dispatch(clearSurvey()),
+    handleCancel: () => getConfirmation() && dispatch(clearSurvey()) && goHome()
 })
 
 const goHome = () => window.location.replace('/');

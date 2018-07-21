@@ -1,13 +1,17 @@
 import React, { Component } from 'react';
 import HeadLine from '../components/form/HeadLine'
 import { connect } from 'react-redux'
-import { clearForm, fetchSurvey, updateSurvey, deleteSurvey } from '../actions/manageSurveyActions';
+import { clearSurvey, fetchSurvey, updateSurvey, deleteSurvey } from '../actions/manageSurveyActions';
 import ManageSurvey from '../components/ManageSurvey';
 
 class Manage extends Component {
     componentDidMount() {
         const { match: { params } } = this.props;
-        !!params.surveyId ? this.props.fetchSurvey(params.surveyId) : this.props.clearForm();
+        !!params.surveyId ? this.props.fetchSurvey(params.surveyId) : this.props.clearSurvey();
+    }
+
+    componentWillUnmount() {
+        this.props.clearSurvey()
     }
 
     render() {
@@ -32,7 +36,7 @@ class Manage extends Component {
 const mapStateToProps = state => ({ manageSurvey: state.manageSurvey })
 
 const mapDispatchToProps = dispatch => ({
-    clearForm: () => dispatch(clearForm()) && goHome(),
+    clearSurvey: () => dispatch(clearSurvey()) && goHome(),
     fetchSurvey: (id) => dispatch(fetchSurvey(id)),
     updateSurvey: () => dispatch(updateSurvey()) && goHome(),
     deleteSurvey: () => getConfirmation()

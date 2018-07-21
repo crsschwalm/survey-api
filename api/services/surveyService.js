@@ -11,6 +11,14 @@ module.exports = {
         );
     },
 
+    findSurveyToTakeById: (req, res) => {
+        const surveyId = req.params.id;
+        Survey.findById(
+            surveyId,
+            (err, survey) => (!!err ? res.send(err) : res.json(hideAnswers(survey)))
+        );
+    },
+
     findAllSurveysByAuthor: (req, res) => {
         const surveyAuthor = req.params.author;
         Survey.find(
@@ -57,4 +65,27 @@ module.exports = {
                     : res.json({ message: 'Survey successfully added!' })
         );
     }
+}
+
+const hideAnswers = (surveyToTake) => {
+    const surveyWithEmptyAnswers = surveyToTake;
+    surveyWithEmptyAnswers.fields = cleanFields(surveyToTake.fields);
+    return surveyWithEmptyAnswers;
+}
+
+const cleanFields = (fields) => fields.map(field => {
+    if (!!field.options) {
+        field.options = cleanOptions(field)
+    }
+    if (!!field.expectedResponse) {
+        const cleanTextResponse = '';
+        field.expectedResponse = cleanTextResponse
+    }
+    return field;
+})
+
+const cleanOptions = field => {
+    const cleanOptions = {};
+    Object.keys(field.options).forEach(key => cleanOptions[key] = false);
+    return cleanOptions;
 }

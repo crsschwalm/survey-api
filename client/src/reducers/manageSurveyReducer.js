@@ -27,12 +27,12 @@ const manageSurveyReducer = (state = emptySurvey(), action) => {
             state.fields[index].question = question;
             return { ...state };
         }
-        case 'SET_TEXT_RESPONSE': {
+        case 'SET_EXPECTED_TEXT': {
             const { index, response } = payload;
             state.fields[index].expectedResponse = response;
             return { ...state };
         }
-        case 'SET_OPTION_RESPONSE': {
+        case 'SET_EXPECTED_OPTION': {
             const { index, key } = payload;
             const isExpected = state.fields[index].options[key];
             state.fields[index].options[key] = !isExpected;
@@ -62,8 +62,8 @@ const manageSurveyReducer = (state = emptySurvey(), action) => {
         }
         case 'FETCH_SUCCESS': {
             const { response } = payload;
-            const startDate = formatDate.forInput(response.startDate)
-            const endDate = formatDate.forInput(response.endDate)
+            const startDate = formatDate.forHTML(response.startDate)
+            const endDate = formatDate.forHTML(response.endDate)
             return { ...state, ...response, loading: false, startDate, endDate };
         }
         case 'FETCH_ERROR': {
@@ -117,7 +117,7 @@ const emptySurvey = () => ({
     name: '',
     description: '',
     author: 'cschwalm',
-    startDate: formatDate.forInput(),
+    startDate: formatDate.forHTML(),
     endDate: '',
     fields: [],
     loading: false,

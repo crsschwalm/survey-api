@@ -10,7 +10,7 @@ const monthDayYear = (input) => {
     return { month, day, year }
 }
 
-const forInput = (date) => {
+const forHTML = (date) => {
     const { month, day, year } = monthDayYear(date)
     return [year, month, day].join('-');
 }
@@ -21,7 +21,7 @@ const forReadability = (date) => {
 }
 
 const formatDate = {
-    forInput,
+    forHTML,
     forReadability
 }
 

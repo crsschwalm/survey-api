@@ -37,7 +37,7 @@ class ManageField extends Component {
 }
 
 const mapDispatchToProps = (dispatch, ownProps) => ({
-    setQuestion: ({ target: { value } }) => dispatch(setQuestion(ownProps.index, value))
+    setQuestion: value => dispatch(setQuestion(ownProps.index, value))
 }
 )
 

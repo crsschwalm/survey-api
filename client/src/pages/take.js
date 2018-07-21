@@ -1,30 +1,36 @@
 import React, { Component } from 'react';
-import { validateSurveyAnswers } from '../services/validationService'
-import SubmitForm from '../components/form/SubmitForm'
-import Survey from '../components/Survey'
+import { connect } from 'react-redux'
+import TakeSurvey from '../components/TakeSurvey';
+import HeadLine from '../components/form/HeadLine'
+import SurveyInfo from '../components/SurveyInfo';
+import { clearResponses, fetchSurvey } from '../actions/takeSurveyActions';
 
-export default class Take extends Component {
-    state = {
-        answers: {}
-    };
-    validate = () => validateSurveyAnswers(this.state.answers)
-    handleFieldChange = (fieldId, answer) => {
-        const answers = this.state.answers;
-        answers[fieldId] = answer;
-        this.setState({ answers: answers });
+class Take extends Component {
+    componentDidMount() {
+        const { match: { params } } = this.props;
+        !!params.surveyId ? this.props.fetchSurvey(params.surveyId) : goHome();
     }
-    handleSubmit = () => {
-        const { match: { params } } = this.props;
-        alert(`Survey: ${params.surveyId} \n ${this.state.answers}`)
-    };
-    handleCancel = () => alert('boohoo canceled!');
+
+    componentWillUnmount() {
+        this.props.clearResponses()
+    }
+
     render() {
-        const { match: { params } } = this.props;
+        const { takeSurvey: { name, description, author, startDate, endDate } } = this.props;
         return (
             <section className="container section">
-                <Survey surveyId={params.surveyId} onFieldChange={this.handleFieldChange} />
-                <SubmitForm onSubmit={this.handleSubmit} onCancel={this.handleCancel} isValid={this.validate()} />
+                <HeadLine heading={name} subheading={description} />
+                <SurveyInfo author={author} startDate={startDate} endDate={endDate} />
+                <TakeSurvey />
             </section>
         )
     }
 }
+const goHome = () => window.location.replace('/');
+const mapStateToProps = state => ({ takeSurvey: state.takeSurvey })
+const mapDispatchToProps = dispatch => ({
+    clearResponses: () => dispatch(clearResponses()),
+    fetchSurvey: (id) => dispatch(fetchSurvey(id)),
+})
+
+export default connect(mapStateToProps, mapDispatchToProps)(Take);

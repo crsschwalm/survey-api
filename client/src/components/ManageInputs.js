@@ -18,8 +18,8 @@ const ManageInputs = ({ setName,
 const mapStateToProps = state => ({ manageSurvey: state.manageSurvey })
 
 const mapDispatchToProps = dispatch => ({
-    setName: ({ target: { value } }) => dispatch(setName(value)),
-    setDescription: ({ target: { value } }) => dispatch(setDescription(value))
+    setName: value => dispatch(setName(value)),
+    setDescription: value => dispatch(setDescription(value))
 })
 
 export default connect(mapStateToProps, mapDispatchToProps)(ManageInputs);
