@@ -15,7 +15,7 @@ const TakeSurvey = ({ takeSurvey: { responses }, submitResponse, handleCancel })
 const mapStateToProps = state => ({ takeSurvey: state.takeSurvey })
 
 const mapDispatchToProps = dispatch => ({
-    submitResponse: () => dispatch(submitResponse()),
+    submitResponse: () => dispatch(submitResponse()) && goHome(),
     handleCancel: () => getConfirmation() && dispatch(clearResponses()) && goHome()
 })
 
