@@ -5,7 +5,7 @@ import InputCheckBox from './InputCheckbox';
 
 
 const CheckAll = ({ label, parsedOptions, handleUserCheck, onChange }) => (
-  //handles user input but does not update the anser array for checks
+  //handles user input but does not update the answer array for checks
   <div className="field ">
     <label className="label">{label}</label>
     <div className="control is-grouped is-grouped-multiline">
@@ -17,7 +17,7 @@ const CheckAll = ({ label, parsedOptions, handleUserCheck, onChange }) => (
 const CheckBoxes = ({ options, onChange }) =>
   options.map(
     ([key, value], index) =>
-      <InputCheckBox index={index} label={key} value={value} onChange={onChange} />
+      <InputCheckBox index={index} key={index} label={key} value={value} onChange={onChange} />
   );
 
 const mapDispatchToProps = (dispatch, ownProps) => ({

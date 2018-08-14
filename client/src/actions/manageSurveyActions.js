@@ -61,14 +61,14 @@ export const deleteSurvey = () => async (dispatch, getState) => {
 export const createSurvey = () => async (dispatch, getState) => {
     dispatch(createStarted());
     try {
-        const response = await fetch('/api/survey/save', {
+        const response = await fetch('/api/survey/create', {
             method: 'POST',
             body: JSON.stringify(getState().manageSurvey),
             headers: {
                 'Content-Type': 'application/json'
             }
         })
-        if (response.status !== 200) { throw new Error('Save Survey Failed') }
+        if (response.status !== 200) { throw new Error('Create Survey Failed') }
         dispatch(createSuccess(response));
     }
     catch (error) {

@@ -1,21 +1,21 @@
 import React, { Fragment } from 'react';
 import Questions from './Questions'
 import { connect } from 'react-redux'
-import { clearResponses, submitSurvey } from '../actions/takeSurveyActions';
+import { clearResponses, submitResponse } from '../actions/takeSurveyActions';
 import SubmitForm from '../components/form/SubmitForm'
-import { validateSurveyAnswers } from '../services/validationService'
+import { validateSurveyResponses } from '../services/validationService'
 
-const TakeSurvey = ({ takeSurvey: { answers }, submitSurvey, handleCancel }) => (
+const TakeSurvey = ({ takeSurvey: { responses }, submitResponse, handleCancel }) => (
     <Fragment>
         <Questions />
-        <SubmitForm onSubmit={submitSurvey} onCancel={handleCancel} isValid={validateSurveyAnswers(answers)} />
+        <SubmitForm onSubmit={submitResponse} onCancel={handleCancel} isValid={validateSurveyResponses(responses)} />
     </Fragment>
 );
 
 const mapStateToProps = state => ({ takeSurvey: state.takeSurvey })
 
 const mapDispatchToProps = dispatch => ({
-    submitSurvey: () => dispatch(submitSurvey()),
+    submitResponse: () => dispatch(submitResponse()),
     handleCancel: () => getConfirmation() && dispatch(clearResponses()) && goHome()
 })
 

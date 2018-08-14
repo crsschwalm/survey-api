@@ -1,6 +1,6 @@
 export const clearResponses = () => ({ type: 'CLEAR_RESPONSES' })
 export const setResponse = (fieldId, response) => ({ type: 'SET_RESPONSE', payload: { fieldId, response } })
-export const updateUserCheck = (index, key) => ({ type: 'UPDATE_USER_CHECK', payload: { index, key } })
+export const handleUserCheck = (index, key) => ({ type: 'HANDLE_USER_CHECK', payload: { index, key } })
 
 export const fetchStarted = () => ({ type: 'FETCH_STARTED' })
 export const fetchSuccess = (response) => ({ type: 'FETCH_SUCCESS', payload: { response } })
@@ -22,12 +22,17 @@ export const fetchSurvey = (id) =>
         }
     }
 
-export const submitSurvey = () => async (dispatch, getState) => {
+export const submitResponse = () => async (dispatch, getState) => {
     dispatch(submitStarted());
     try {
-        const response = await fetch('/api/survey/response', {
+        const response = await fetch('/api/response', {
             method: 'POST',
-            body: JSON.stringify(getState().takeSurvey),
+            body: JSON.stringify(
+                {
+                    surveyId: getState().takeSurvey._id,
+                    responses: getState().takeSurvey.responses
+                }
+            ),
             headers: {
                 'Content-Type': 'application/json'
             }

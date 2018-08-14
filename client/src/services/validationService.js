@@ -6,7 +6,7 @@ export const validateSurveyForm = (form) => {
     return areRequiredFieldsValid && isFieldOptionValid;
 };
 
-export const validateSurveyAnswers = (answers) => isNotEmpty(Object.values(answers))
+export const validateSurveyResponses = (responses) => isNotEmpty(Object.values(responses))
 
 const isNotEmpty = (something) => !!something && something.length !== 0;
 const isInvalidField = ({ question, fieldType, options }) => !question || !fieldType || (fieldType !== 'TextInput' && Object.values(options).length === 0);

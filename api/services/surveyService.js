@@ -50,7 +50,7 @@ module.exports = {
         Survey.find((err, surveys) => (!!err ? res.send(err) : res.json(surveys)));
     },
 
-    saveSurvey: (req, res) => {
+    createSurvey: (req, res) => {
         const survey = new Survey();
         survey.author = req.body.author;
         survey.name = req.body.name;
@@ -64,7 +64,7 @@ module.exports = {
                     ? res.send(err)
                     : res.json({ message: 'Survey successfully added!' })
         );
-    }
+    },
 }
 
 const hideAnswers = (surveyToTake) => {

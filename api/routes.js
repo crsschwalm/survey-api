@@ -1,5 +1,6 @@
 const express = require('express');
 const surveyService = require('./services/surveyService');
+const responseService = require('./services/responseService');
 // import {
 //     register,
 //     login,
@@ -9,7 +10,7 @@ const surveyService = require('./services/surveyService');
 const Router = express.Router();
 
 //Admin Only
-Router.post('/survey/save', surveyService.saveSurvey);
+Router.post('/survey/create', surveyService.createSurvey);
 Router.post(
     '/survey/delete/:id',
     surveyService.deleteSurveyById
@@ -18,7 +19,11 @@ Router.put(
     '/survey/update/:id',
     surveyService.updateSurveyById
 );
-//Open Routes
+//Response
+Router.post('/response', responseService.sumbitResponse);
+Router.get('/response/:id', responseService.findResponseBySurveyId);
+Router.get('/response/all', responseService.findAllResponses);
+
 Router.get('/survey/author/:author', surveyService.findAllSurveysByAuthor);
 Router.get('/survey/all', surveyService.findAllSurveys);
 Router.get('/survey/:id', surveyService.findSurveyById);

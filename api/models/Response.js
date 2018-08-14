@@ -5,22 +5,27 @@ const { Field } = require('./Field');
 const Schema = mongoose.Schema;
 
 const ResponseSchema = new Schema({
+    id: Schema.Types.ObjectId,
+    //userRef: 
+    // {
+    //     type: Schema.Types.ObjectId,
+    //     ref: User,
+    //     required: true
+    // },
     surveyRef: {
         type: Schema.Types.ObjectId,
         ref: Survey,
         required: true
     },
-    responses: [{
-        fieldRef: {
-            type: Schema.Types.ObjectId,
-            ref: Field,
-            required: true
-        }, response: [String]
-        //input: [String]
-        //selection: [ref to label id]
-    }],
+
+    responses: Schema.Types.Mixed
+    // responses: [{
+    //     fieldRef: {
+    //         type: Schema.Types.ObjectId,
+    //         ref: Field,
+    //         required: true
+    //     }, response: Schema.Types.Mixed
+    // }],
 });
 
-const Response = mongoose.model('Response', ResponseSchema);
-
-module.exports = { Response, ResponseSchema }
+module.exports = mongoose.model('Response', ResponseSchema);

@@ -5,15 +5,19 @@ const takeSurveyReducer = (state = emptyResponse(), action) => {
     switch (type) {
         case 'SET_RESPONSE': {
             const { fieldId, response } = payload;
-            const answers = state.answers;
-            answers[fieldId] = response;
-            return { ...state, answers: answers };
+            const responses = state.responses;
+            responses[fieldId] = response;
+            return { ...state, responses: responses };
         }
-        case 'UPDATE_USER_CHECK': {
+        case 'HANDLE_USER_CHECK': {
             const { index, key } = payload;
             const isChecked = state.fields[index].options[key];
             state.fields[index].options[key] = !isChecked;
-            return { ...state };
+
+            const fieldId = state.fields[index]._id;
+            const responses = state.responses;
+            responses[fieldId] = state.fields[index].options
+            return { ...state, responses: responses };
         }
         case 'CLEAR_RESPONSES': {
             return { ...state, ...emptyResponse() }
@@ -55,7 +59,7 @@ const emptyResponse = () => ({
     startDate: formatDate.forHTML(),
     endDate: '',
     fields: [],
-    answers: {},
+    responses: {},
     loading: false,
     error: null
 });
