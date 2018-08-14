@@ -1,11 +1,11 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux'
-import Input from './form/Input';
-import ManageOptionField from './ManageOptionField';
-import ManageInputField from './ManageInputField';
-import { setQuestion } from '../actions/manageSurveyActions'
+import Input from '../form/Input';
+import OptionField from './OptionField';
+import InputField from './InputField';
+import { setQuestion } from '../../actions/manageSurveyActions'
 
-class ManageField extends Component {
+class Field extends Component {
     render() {
         const { fieldType, question, index, removeField } = this.props;
         const { setQuestion } = this.props;
@@ -24,11 +24,11 @@ class ManageField extends Component {
                             <label className="label">Field Type: <em>{fieldType}</em></label>
                         </div>
 
-                        <Input label={`Field: ${index}`} placeholder='What Question would you like to ask?' value={question} onChange={setQuestion} />
+                        <Input label={`Field: ${index + 1}`} placeholder='What Question would you like to ask?' value={question} onChange={setQuestion} />
                         <br />
                         {fieldType === 'TextInput' ?
-                            <ManageInputField fieldIndex={index} /> :
-                            <ManageOptionField fieldIndex={index} />}
+                            <InputField fieldIndex={index} /> :
+                            <OptionField fieldIndex={index} />}
                     </div >
                 </div>
             </div >
@@ -46,5 +46,5 @@ const mapStateToProps = (state, ownProps) => {
 }
 
 
-export default connect(mapStateToProps, mapDispatchToProps)(ManageField);
+export default connect(mapStateToProps, mapDispatchToProps)(Field);
 

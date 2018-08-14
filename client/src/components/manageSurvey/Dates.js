@@ -1,9 +1,9 @@
 import React, { Fragment } from 'react';
-import DatePicker from '../components/form/DatePicker'
+import DatePicker from '../form/DatePicker'
 import { connect } from 'react-redux'
 import {
     setStartDate, setEndDate
-} from '../actions/manageSurveyActions';
+} from '../../actions/manageSurveyActions';
 
 
 const ManageInputs = ({ setStartDate, setEndDate, manageSurvey: { startDate, endDate } }) => (

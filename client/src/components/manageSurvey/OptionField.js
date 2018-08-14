@@ -1,11 +1,11 @@
 import React, { Fragment } from 'react';
 import { connect } from 'react-redux'
-import EditableCheckBox from './form/EditableCheckBox'
-import Input from './form/Input';
-import { addOption, removeOption, setExpectedOptions } from '../actions/manageSurveyActions';
+import EditableCheckBox from '../form/EditableCheckBox'
+import Input from '../form/Input';
+import { addOption, removeOption, setExpectedOptions } from '../../actions/manageSurveyActions';
 
 
-const ManageOptionField = (props) => (
+const OptionField = (props) => (
     <Fragment>
         <Input label="Answer" placeholder="e.g. Choose this option" help='Add answer with "Enter"' onKeyPress={props.addOption} />
         <AvailableOptions {...props} />
@@ -45,4 +45,4 @@ const mapStateToProps = (state, ownProps) => {
     return { parsedOptions: Object.entries(options) };
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(ManageOptionField);
+export default connect(mapStateToProps, mapDispatchToProps)(OptionField);

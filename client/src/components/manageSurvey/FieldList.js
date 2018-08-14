@@ -1,13 +1,13 @@
 import React, { Fragment } from 'react';
 import { connect } from 'react-redux'
-import ManageField from './ManageField';
-import { addField, removeField } from '../actions/manageSurveyActions';
-import NewFieldButtons from './form/NewFieldButtons'
+import Field from './Field';
+import { addField, removeField } from '../../actions/manageSurveyActions';
+import NewFieldButtons from '../form/NewFieldButtons'
 
-const ManageFieldList = ({ manageSurvey: { fields }, addField, removeField }) => (
+const FieldList = ({ manageSurvey: { fields }, addField, removeField }) => (
     <Fragment>
         {fields.map((field, index) => (
-            <ManageField key={index} index={index} removeField={() => removeField(index)} />
+            <Field key={index} index={index} removeField={() => removeField(index)} />
         ))}
         <NewFieldButtons addField={addField} />
     </Fragment>
@@ -20,4 +20,4 @@ const mapDispatchToProps = dispatch => ({
     removeField: (fieldIndex) => dispatch(removeField(fieldIndex))
 })
 
-export default connect(mapStateToProps, mapDispatchToProps)(ManageFieldList);
+export default connect(mapStateToProps, mapDispatchToProps)(FieldList);

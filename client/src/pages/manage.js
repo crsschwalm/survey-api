@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import HeadLine from '../components/form/HeadLine'
 import { connect } from 'react-redux'
 import { clearSurvey, fetchSurvey, updateSurvey, deleteSurvey } from '../actions/manageSurveyActions';
-import ManageSurvey from '../components/ManageSurvey';
+import ManageSurvey from '../components/manageSurvey';
 
 class Manage extends Component {
     componentDidMount() {

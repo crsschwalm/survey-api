@@ -1,6 +1,6 @@
 import { Component } from "react";
 
-export default class AsyncList extends Component {
+class AsyncList extends Component {
     state = {
         list: [],
         isLoading: false,
@@ -25,3 +25,5 @@ export default class AsyncList extends Component {
         return this.props.render(this.state);
     }
 }
+
+export default AsyncList;

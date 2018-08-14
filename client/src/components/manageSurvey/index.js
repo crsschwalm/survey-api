@@ -1,19 +1,19 @@
 import React from 'react';
 import { connect } from 'react-redux'
-import { validateSurveyForm } from '../services/validationService';
-import { clearSurvey } from '../actions/manageSurveyActions';
-import Loading from '../components/Loading'
-import ManageInputs from '../components/ManageInputs'
-import ManageFieldList from '../components/ManageFieldList'
-import ManageDates from '../components/ManageDates'
-import SubmitForm from '../components/form/SubmitForm'
+import { validateSurveyForm } from '../../services/validationService';
+import { clearSurvey } from '../../actions/manageSurveyActions';
+import Loading from '../Loading'
+import About from './About'
+import FieldList from './FieldList'
+import Dates from './Dates'
+import SubmitForm from '../form/SubmitForm'
 
 const ManageSurvey = ({ manageSurvey, onSubmit, handleCancel }) => (
     <section className="container section">
         <Loading isLoading={manageSurvey.loading} />
-        <ManageInputs />
-        <ManageFieldList />
-        <ManageDates />
+        <About />
+        <FieldList />
+        <Dates />
         <SubmitForm onSubmit={onSubmit} onCancel={handleCancel} isValid={validateSurveyForm(manageSurvey)} />
     </section>
 );

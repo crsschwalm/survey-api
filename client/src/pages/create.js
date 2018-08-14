@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import HeadLine from '../components/form/HeadLine'
 import { connect } from 'react-redux'
 import { clearSurvey, createSurvey } from '../actions/manageSurveyActions';
-import ManageSurvey from '../components/ManageSurvey';
+import ManageSurvey from '../components/manageSurvey';
 
 
 class Create extends Component {

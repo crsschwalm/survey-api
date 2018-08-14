@@ -1,11 +1,11 @@
 import React, { Fragment } from 'react';
-import Input from '../components/form/Input'
-import TextArea from '../components/form/TextArea'
-import ReadOnly from '../components/form/ReadOnly'
+import Input from '../form/Input'
+import TextArea from '../form/TextArea'
+import ReadOnly from '../form/ReadOnly'
 import { connect } from 'react-redux'
-import { setName, setDescription } from '../actions/manageSurveyActions';
+import { setName, setDescription } from '../../actions/manageSurveyActions';
 
-const ManageInputs = ({ setName,
+const About = ({ setName,
     setDescription,
     manageSurvey: { name, description, author } }) => (
         <Fragment>
@@ -22,4 +22,4 @@ const mapDispatchToProps = dispatch => ({
     setDescription: value => dispatch(setDescription(value))
 })
 
-export default connect(mapStateToProps, mapDispatchToProps)(ManageInputs);
+export default connect(mapStateToProps, mapDispatchToProps)(About);
