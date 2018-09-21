@@ -1,26 +1,26 @@
-import React, { Fragment } from "react";
+import React from "react";
 import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
-import Header from './components/Header'
-import Footer from './components/Footer';
+import AuthRoute from './components/AuthRoute'
+import AppContainer from './components/AppContainer'
 import Home from './pages/index';
 import Take from './pages/take';
 import Manage from './pages/manage';
 import Create from './pages/create';
+import Login from './pages/login';
 import NotFound from './pages/notFound';
 
 const Routes = () => (
     <Router>
-        <Fragment>
-            <Header />
+        <AppContainer>
             <Switch>
-                <Route exact path="/" component={Home} />
-                <Route exact path="/survey/take/:surveyId" component={Take} />
-                <Route exact path="/survey/manage/:surveyId" component={Manage} />
-                <Route exact path="/create" component={Create} />
+                <AuthRoute exact path="/" component={Home} />
+                <AuthRoute exact path="/survey/take/:surveyId" component={Take} />
+                <AuthRoute exact path="/survey/manage/:surveyId" component={Manage} />
+                <AuthRoute exact path="/create" component={Create} />
+                <Route exact path="/login" component={Login} />
                 <Route component={NotFound} />
             </Switch>
-            <Footer />
-        </Fragment>
+        </AppContainer>
     </Router>
 );
 

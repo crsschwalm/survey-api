@@ -30,6 +30,7 @@ const AvailableOptions = ({ parsedOptions, removeOption, setExpectedOptions }) =
 
 const mapDispatchToProps = (dispatch, ownProps) => ({
     addOption: (event) => {
+        console.log(event.key)
         if (event.key === 'Enter' && !!event.target.value) {
             dispatch(addOption(ownProps.fieldIndex, event.target.value))
             event.target.value = '';

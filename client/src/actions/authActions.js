@@ -1,0 +1,1 @@
+export const submitLogin = (userInfo) => ({ type: 'SUBMIT_LOGIN', payload: userInfo })
