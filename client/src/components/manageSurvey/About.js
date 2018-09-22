@@ -5,17 +5,17 @@ import ReadOnly from '../form/ReadOnly'
 import { connect } from 'react-redux'
 import { setName, setDescription } from '../../actions/manageSurveyActions';
 
-const About = ({ setName,
+const About = ({ user, setName,
     setDescription,
     manageSurvey: { name, description, author } }) => (
         <Fragment>
-            <ReadOnly label="Author" value={author} />
+            <ReadOnly label="Author" value={author || user.username} />
             <Input label="Survey Name" value={name} placeholder="What would you say..." onChange={setName} />
             <TextArea label="Description" value={description} onChange={setDescription} placeholder="e.g. We want to know more about you!" />
         </Fragment>
     );
 
-const mapStateToProps = state => ({ manageSurvey: state.manageSurvey })
+const mapStateToProps = state => ({ manageSurvey: state.manageSurvey, user: state.auth })
 
 const mapDispatchToProps = dispatch => ({
     setName: value => dispatch(setName(value)),

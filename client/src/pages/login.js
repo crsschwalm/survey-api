@@ -1,48 +1,41 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux'
-import { submitLogin } from '../actions/authActions';
+import { login } from '../actions/authActions';
+import { Container, Field, ButtonGroup } from '../components/login'
+import { Lock, User, Check } from '../components/login/Icons'
 
 class Login extends Component {
     state = {
-        email: '',
+        username: '',
         password: ''
     }
 
     onPasswordChange = ({ target: { value } }) => this.setState({ password: value })
-
-
-    onEmailChange = ({ target: { value } }) => this.setState({ email: value })
+    onUsernameChange = ({ target: { value } }) => this.setState({ username: value })
+    canSubmit = () => !!this.state.username && !!this.state.password
 
     render() {
         return (
-            <section className="section">
-                <div className="container section">
-                    <div className="field">
-                        <p className="control has-icons-left has-icons-right">
-                            <input className="input" type="email" placeholder="Email" onChange={this.onEmailChange} value={this.state.email} />
-                            <span className="icon is-small is-left">
-                                <i className="fas fa-envelope" />
-                            </span>
-                            {this.state.email && <span className="icon is-small is-right">
-                                <i className="fas fa-check" />
-                            </span>}
-                        </p>
+            <Container>
+                <Field>
+                    <input className="input" type="text" placeholder="UserName" onChange={this.onUsernameChange} value={this.state.username} />
+                    <User />
+                    {this.state.username && <Check />}
+                </Field>
+                <Field>
+                    <input className="input" type="password" placeholder="Password" onChange={this.onPasswordChange} value={this.state.password} />
+                    <Lock />
+                    {this.state.password && <Check />}
+                </Field>
+                <ButtonGroup>
+                    <div className="control">
+                        <button className="button is-success" disabled={!this.canSubmit()} onClick={() => this.props.login(this.state)}>Login</button>
                     </div>
-                    <div className="field">
-                        <p className="control has-icons-left">
-                            <input className="input" type="password" placeholder="Password" onChange={this.onPasswordChange} value={this.state.password} />
-                            {this.state.password && <span className="icon is-small is-left">
-                                <i className="fas fa-lock" />
-                            </span>}
-                        </p>
+                    <div className="control">
+                        <button className="button is-text" onClick={() => window.location.replace('/register')}>New User?</button>
                     </div>
-                    <div className="field">
-                        <p className="control">
-                            <button className="button is-success" onClick={() => this.props.submitLogin(this.state)}>Login</button>
-                        </p>
-                    </div>
-                </div>
-            </section>
+                </ButtonGroup>
+            </Container>
         );
     }
 }
@@ -50,7 +43,7 @@ class Login extends Component {
 const mapStateToProps = state => ({ auth: state.auth })
 
 const mapDispatchToProps = dispatch => ({
-    submitLogin: (userInfo) => dispatch(submitLogin(userInfo)),
+    login: (userInfo) => dispatch(login(userInfo)),
 })
 
 export default connect(mapStateToProps, mapDispatchToProps)(Login);

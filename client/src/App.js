@@ -7,6 +7,7 @@ import Take from './pages/take';
 import Manage from './pages/manage';
 import Create from './pages/create';
 import Login from './pages/login';
+import Register from './pages/register';
 import NotFound from './pages/notFound';
 
 const Routes = () => (
@@ -18,6 +19,7 @@ const Routes = () => (
                 <AuthRoute exact path="/survey/manage/:surveyId" component={Manage} />
                 <AuthRoute exact path="/create" component={Create} />
                 <Route exact path="/login" component={Login} />
+                <Route exact path="/register" component={Register} />
                 <Route component={NotFound} />
             </Switch>
         </AppContainer>

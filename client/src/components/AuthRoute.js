@@ -4,7 +4,7 @@ import { Route } from "react-router-dom";
 import Login from '../pages/login';
 
 const AuthRoute = ({ component, auth, ...restProps }) => <Route {...restProps} component={
-    !!auth.email ? component : Login
+    !!auth.loggedIn ? component : Login
 } />
 
 const mapStateToProps = state => ({ auth: state.auth })

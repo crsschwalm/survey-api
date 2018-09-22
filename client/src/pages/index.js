@@ -5,12 +5,13 @@ import SurveyCard from '../components/SurveyCard';
 import AsyncList from '../components/AsyncList'
 import Loading from '../components/Loading';
 import HeadLine from '../components/form/HeadLine';
+import { connect } from 'react-redux'
 
-const Home = () => (
+const Home = ({ user }) => (
     <div className="App">
         <ReactSpinny />
         <div className="container section">
-            <HeadLine heading='Check out a new Survey!' subheading={`Welcome ${'guest'}`} />
+            <HeadLine heading='Check out a new Survey!' subheading={`Welcome ${user.name || user.username}`} />
             <AsyncList
                 url="/api/survey/all"
                 render={({ list, isLoading }) => isLoading ? <Loading /> :
@@ -32,4 +33,6 @@ const ReactSpinny = () => (
     </header>
 )
 
-export default Home;
+const mapStateToProps = state => ({ user: state.auth })
+
+export default connect(mapStateToProps)(Home);

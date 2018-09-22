@@ -1,1 +1,2 @@
-export const submitLogin = (userInfo) => ({ type: 'SUBMIT_LOGIN', payload: userInfo })
+export const register = (userInfo) => ({ type: 'REGISTER', payload: userInfo })
+export const login = (userInfo) => ({ type: 'LOGIN', payload: userInfo })

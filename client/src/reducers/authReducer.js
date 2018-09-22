@@ -1,8 +1,20 @@
-const authReducer = (state = { email: '', password: '' }, action) => {
+const authReducer = (state = { name: '', username: '', loggedIn: false }, action) => {
     const { type, payload } = action;
     switch (type) {
-        case 'SUBMIT_LOGIN': {
-            return { ...state, email: payload.email };
+        case 'LOGIN': {
+            return {
+                ...state,
+                loggedIn: true,
+                username: payload.username
+            };
+        }
+        case 'REGISTER': {
+            return {
+                ...state,
+                loggedIn: true,
+                name: payload.name,
+                username: payload.username
+            };
         }
         default: {
             return state;

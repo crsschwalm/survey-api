@@ -16,4 +16,9 @@ const Input = ({ value, label, placeholder, onChange, onKeyPress, help }) => (
     </div>
 )
 
+Input.defaultProps = {
+    onKeyPress: () => { },
+    onChange: () => { }
+};
+
 export default Input;

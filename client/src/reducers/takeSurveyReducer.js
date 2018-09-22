@@ -55,7 +55,7 @@ const emptyResponse = () => ({
     _id: undefined,
     name: '',
     description: '',
-    author: 'cschwalm',
+    author: '',
     startDate: formatDate.forHTML(),
     endDate: '',
     fields: [],
