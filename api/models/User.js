@@ -34,7 +34,7 @@ UserSchema.statics.authenticate = function (username, password) {
       throw err;
     }
     return bcrypt.compare(password, user.password).then(res => {
-      if (res === true) return res;
+      if (res === true) return user;
       const err = new Error("Incorrect Password.");
       err.status = 401;
       throw err;

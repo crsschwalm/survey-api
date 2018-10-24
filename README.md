@@ -16,7 +16,7 @@ DMI Survey application for understanding the basic concepts of JavaScript develo
 * Utilizes AWS - Heroku application Pipeline and MongoDB
 * Utilizes Node Express for server-side functionality
 * Utilizes React for front-end development
-* Authentication via Passport Admin account
+* Authentication via bcrypt hashing
 
 # API Docs
 Basic Express API connecting to a MongoDB instance.
