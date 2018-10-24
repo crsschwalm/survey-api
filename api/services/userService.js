@@ -34,7 +34,6 @@ module.exports = {
       User.authenticate(req.body.username, req.body.password)
         .then((user) => {
           req.session.userId = user._id;
-          console.log(req.session)
           res.json(
             { message: "Successfully Logged in!", username: user.username }
           )
