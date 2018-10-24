@@ -18,65 +18,79 @@ DMI Survey application for understanding the basic concepts of JavaScript develo
 * Utilizes React for front-end development
 * Authentication via Passport Admin account
 
-## API Docs
+# API Docs
 Basic Express API connecting to a MongoDB instance.
 
-### User
-__Schema__
-  email
-  username
-  password
-  passwordConf
+## User
+### Schema
+```
+email: <String>
+username: <String>
+password: <String>
+passwordConf: <String>
+```
 
-__Routes__
-`POST`: `/api/user/create`
+### Routes
+`POST /api/user/create`
+
 required body:
 ```
 {
-    email: <String>
-    username: <String>
-    password: <String>
-    passwordConf: <String>
+    email,
+    username,
+    password,
+    passwordConf
 }
 ```
-`POST`: `/api/user/authenticate`
+`POST /api/user/authenticate`
+
 required body:
 ```
 {
-    username: <String>
-    password: <String>
+    username,
+    password
 }
 ```
 
-### Survey
-__Schema__
-    id
-    author
-    name
-    description
-    startDate
-    endDate
-    fields: Array of json objects. `fieldType` determines the schema to use.
-        Also useful in determining the presentational component based on this fieldType
-    __CheckAll__
-        options
-    __SelectFrom__
-        options
-    __TextInput__
-        expectedResponse
+## Survey
+### Schema
+```
+id
+author
+name
+description
+startDate
+endDate
+fields: Array of json objects. `fieldType` determines the schema to use.
+    Also useful in determining the presentational component based on this fieldType
+```
 
-__Routes__
-`GET`: `/survey/all` - response: all surveys
-`GET`: `/survey/:id` - response: survey with given id
-`GET`: `/survey/author/:author` - response: all surveys by author
-`GET`: `/survey/to-take/:id` - response: survey with expected responses hidden for given id
+* __CheckAll__
+```options```
+* __SelectFrom__
+```options```
+* __TextInput__
+```expectedResponse```
 
-`PUT`: `/survey/update/:id` - update Survey based on request body (JSON) and given id
-`POST`: `/survey/delete/:id` - delete the survey for given id
-`POST`: `/survey/create` - create Survey based on request body (JSON)
+### Routes
+`GET /survey/all` - response: all surveys
 
-### Response
-__Schema__
-    id
-    surveyRef
-    responses
+`GET /survey/:id` - response: survey with given id
+
+`GET /survey/author/:author` - response: all surveys by author
+
+`GET /survey/to-take/:id` - response: survey with expected responses hidden for given id
+
+`PUT /survey/update/:id` - update Survey based on request body (JSON) and given id
+
+`POST /survey/delete/:id` - delete the survey for given id
+
+`POST /survey/create` - create Survey based on request body (JSON)
+
+## Response
+### Schema
+```
+id
+surveyRef
+responses
+```
