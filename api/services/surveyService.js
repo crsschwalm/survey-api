@@ -46,9 +46,8 @@ module.exports = {
         );
     },
 
-    findAllSurveys: (req, res) => {
-        Survey.find((err, surveys) => (!!err ? res.send(err) : res.json(surveys)));
-    },
+    findAllSurveys: (req, res) =>
+        Survey.find((err, surveys) => (!!err ? res.send(err) : res.json(surveys))),
 
     createSurvey: (req, res) => {
         const survey = new Survey();

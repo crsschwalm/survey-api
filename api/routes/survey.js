@@ -13,7 +13,7 @@ Router.put(
 );
 Router.get('/author/:author', surveyService.findAllSurveysByAuthor);
 Router.get('/all', surveyService.findAllSurveys);
-Router.get('/:id', surveyService.findSurveyById);
 Router.get('/to-take/:id', surveyService.findSurveyToTakeById);
+Router.get('/:id', surveyService.findSurveyById);
 
 module.exports = Router;

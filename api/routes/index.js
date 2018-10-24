@@ -1,6 +1,6 @@
 const express = require('express');
-const surveyRoutes = require('./response');
-const responseRoutes = require('./survey');
+const surveyRoutes = require('./survey');
+const responseRoutes = require('./response');
 const userRoutes = require('./user');
 const Router = express.Router();
 const session = require('express-session')
@@ -14,6 +14,7 @@ function requireLogin(req, res, next) {
         return next(err);
     }
 }
+
 Router.use(session({
     secret: 'keyboard cat',
     resave: true,
