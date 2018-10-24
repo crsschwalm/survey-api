@@ -2,7 +2,7 @@ const mongoose = require("mongoose");
 const bcrypt = require("bcrypt");
 const Schema = mongoose.Schema;
 
-const UserSchema = new mongoose.Schema({
+const UserSchema = new Schema({
   email: {
     type: String,
     unique: true,
@@ -26,35 +26,36 @@ const UserSchema = new mongoose.Schema({
 });
 
 //authenticate input against database
-UserSchema.statics.authenticate = function(email, password, callback) {
-  User.findOne({ email: email }).exec(function(err, user) {
-    if (err) {
-      return callback(err);
-    } else if (!user) {
+UserSchema.statics.authenticate = function (username, password) {
+  return User.findOne({ username: username }).exec().then(user => {
+    if (!user) {
       const err = new Error("User not found.");
       err.status = 401;
-      return callback(err);
+      throw err;
     }
-    bcrypt.compare(password, user.password, function(err, result) {
-      if (result === true) {
-        return callback(null, user);
-      } else {
-        return callback();
-      }
-    });
+    return bcrypt.compare(password, user.password).then(res => {
+      if (res === true) return res;
+      const err = new Error("Incorrect Password.");
+      err.status = 401;
+      throw err;
+    })
   });
 };
 
 //hashing a password before saving it to the database
-UserSchema.pre("save", function(next) {
+UserSchema.pre("save", async function (next) {
   const user = this;
-  bcrypt.hash(user.password, 10, function(err, hash) {
-    if (err) {
-      return next(err);
-    }
-    user.password = hash;
+  const hashedPassword = await bcrypt.hash(user.password, 10);
+  const hashedPasswordConf = await bcrypt.hash(user.passwordConf, 10);
+  try {
+    user.password = hashedPassword;
+    user.passwordConf = hashedPasswordConf;
     next();
-  });
+  } catch (err) {
+    console.error(err);
+    next(err)
+  }
 });
 
-module.exports = mongoose.model("User", UserSchema);
+const User = mongoose.model('User', UserSchema);
+module.exports = User;

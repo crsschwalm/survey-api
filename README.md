@@ -21,15 +21,35 @@ DMI Survey application for understanding the basic concepts of JavaScript develo
 ## API Docs
 Basic Express API connecting to a MongoDB instance.
 
-### MongoDB Data Model
-`/api/models`
-__User__
+### User
+__Schema__
   email
   username
   password
   passwordConf
 
-__Survey__
+__Routes__
+`POST`: `/api/user/create`
+required body:
+```
+{
+    email: <String>
+    username: <String>
+    password: <String>
+    passwordConf: <String>
+}
+```
+`POST`: `/api/user/authenticate`
+required body:
+```
+{
+    username: <String>
+    password: <String>
+}
+```
+
+### Survey
+__Schema__
     id
     author
     name
@@ -45,7 +65,18 @@ __Survey__
     __TextInput__
         expectedResponse
 
-__Response__
+__Routes__
+`GET`: `/survey/all` - response: all surveys
+`GET`: `/survey/:id` - response: survey with given id
+`GET`: `/survey/author/:author` - response: all surveys by author
+`GET`: `/survey/to-take/:id` - response: survey with expected responses hidden for given id
+
+`PUT`: `/survey/update/:id` - update Survey based on request body (JSON) and given id
+`POST`: `/survey/delete/:id` - delete the survey for given id
+`POST`: `/survey/create` - create Survey based on request body (JSON)
+
+### Response
+__Schema__
     id
     surveyRef
     responses
