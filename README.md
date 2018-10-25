@@ -1,22 +1,20 @@
 # DMI Survey
-### An app built with create-react-app
 
 ## How to use
-Install it and run:
+Just API
+```
+yarn
+yarn start
+```
 
+API & Front End
 ```
 yarn
 cd client
 yarn
+cd ..
 yarn dev
 ```
-
-## Idea behind the example
-DMI Survey application for understanding the basic concepts of JavaScript development.
-* Utilizes AWS - Heroku application Pipeline and MongoDB
-* Utilizes Node Express for server-side functionality
-* Utilizes React for front-end development
-* Authentication via bcrypt hashing
 
 # API Docs
 Basic Express API connecting to a MongoDB instance.
@@ -31,7 +29,7 @@ passwordConf: <String>
 ```
 
 ### Routes
-`POST /api/user/create`
+`POST /api/user/create`: Register new user. Hashes Password before inserting into DB
 
 required body:
 ```
@@ -42,7 +40,7 @@ required body:
     passwordConf
 }
 ```
-`POST /api/user/authenticate`
+`POST /api/user/authenticate`: Checks Username in DB. Checks password matches encrypted password.
 
 required body:
 ```
@@ -51,46 +49,82 @@ required body:
     password
 }
 ```
+`POST /logout`: Kills session with userId auth
+
+`GET /find/:id`: Returns User object includeing hashed Password.
 
 ## Survey
 ### Schema
 ```
-id
-author
-name
-description
-startDate
-endDate
-fields: Array of json objects. `fieldType` determines the schema to use.
-    Also useful in determining the presentational component based on this fieldType
+authorRef<User _id>
+name<String>
+description<String>
+fields<[Field]>
+startDate<Date>(defaults to current time)
+endDate<Date>
+```
+```
+Field
+-----
+    question<String>
+    fieldType<String>
 ```
 
+fieldType: determines the schema to use.
+Also useful in determining the presentational component based on this fieldType
+
 * __CheckAll__
-```options```
+```
+options<[String]>
+expectedResponse<[String]>
+```
 * __SelectFrom__
-```options```
+```
+options<String>
+expectedResponse<String>
+```
 * __TextInput__
-```expectedResponse```
+```
+expectedResponse<String>
+```
 
 ### Routes
-`GET /survey/all` - response: all surveys
+`GET /survey/all`: return all surveys
 
-`GET /survey/:id` - response: survey with given id
+`GET /survey/find/:id`: return survey for given id
 
-`GET /survey/author/:author` - response: all surveys by author
+`GET /survey/author/:id`: return all surveys by userId
 
-`GET /survey/to-take/:id` - response: survey with expected responses hidden for given id
+`GET /survey/to-take/:id`: return survey with expected responses hidden for given id
 
-`PUT /survey/update/:id` - update Survey based on request body (JSON) and given id
+`PUT /survey/update/:id`: update Survey based on request body
 
-`POST /survey/delete/:id` - delete the survey for given id
+`POST /survey/delete/:id`: delete the survey for given id
 
-`POST /survey/create` - create Survey based on request body (JSON)
+`POST /survey/create`: create Survey with body content.
+
+required body:
+```
+{
+    authorRef
+    name
+    description
+    fields
+    endDate
+}
+```
 
 ## Response
 ### Schema
 ```
-id
-surveyRef
-responses
+surveyRef<Survey _id>
+userRef<User _id>
+fieldResponses<[FieldResponse]>
+timeStamp<Date (defaults to now)>
+```
+```
+FieldResponse
+-------------
+    fieldRef<Field _id>
+    response<[String]>
 ```

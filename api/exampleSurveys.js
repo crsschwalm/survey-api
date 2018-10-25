@@ -6,13 +6,13 @@ const survey = {
         {
             "fieldType": "TextInput",
             "question": "Tell me something",
-            "response": "Say something"
+            "expectedResponse": "Say something"
         },
         {
 
             "fieldType": "SelectFrom",
             "question": "Select the one that applies",
-            "response": ["second option"],
+            "expectedResponse": ["second option"],
             "options": [
                 "first option",
                 "second option",
@@ -22,12 +22,12 @@ const survey = {
         {
             "fieldType": "TextInput",
             "question": "Tell me something",
-            "response": "second option 4"
+            "expectedResponse": "second option 4"
         },
         {
             "fieldType": "CheckAll",
             "question": "Check all That apply",
-            "response": ["first check", "third check"],
+            "expectedResponse": ["first check", "third check"],
             "options": [
                 "first check",
                 "second check",
@@ -37,7 +37,7 @@ const survey = {
         {
             "fieldType": "TextInput",
             "question": "Tell me something",
-            "response": "NEVER"
+            "expectedResponse": "NEVER"
         }
     ],
     "startDate": "April 5, 2018",
