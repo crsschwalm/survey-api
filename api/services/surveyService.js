@@ -68,23 +68,6 @@ module.exports = {
 
 const hideAnswers = (surveyToTake) => {
     const surveyWithEmptyAnswers = surveyToTake;
-    surveyWithEmptyAnswers.fields = cleanFields(surveyToTake.fields);
+    surveyWithEmptyAnswers.fields.forEach(field => field.expectedResponse = null)
     return surveyWithEmptyAnswers;
-}
-
-const cleanFields = (fields) => fields.map(field => {
-    if (!!field.options) {
-        field.options = cleanOptions(field)
-    }
-    if (!!field.expectedResponse) {
-        const cleanTextResponse = '';
-        field.expectedResponse = cleanTextResponse
-    }
-    return field;
-})
-
-const cleanOptions = field => {
-    const cleanOptions = {};
-    Object.keys(field.options).forEach(key => cleanOptions[key] = false);
-    return cleanOptions;
 }
