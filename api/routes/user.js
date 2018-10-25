@@ -2,9 +2,9 @@ const express = require('express');
 const userService = require('../services/userService');
 const Router = express.Router();
 
-Router.post('/create', userService.createUser);
-Router.post('/authenticate', userService.authenticate);
+Router.post('/', userService.createUser);
+Router.get('/authenticate', userService.authenticate);
 Router.get('/logout', userService.logout);
-Router.get('/find/:id', userService.findUserById);
+Router.get('/:id', userService.findUserById);
 
 module.exports = Router;

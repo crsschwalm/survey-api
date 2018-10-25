@@ -2,18 +2,12 @@ const express = require('express');
 const surveyService = require('../services/surveyService');
 const Router = express.Router();
 
-Router.post('/create', surveyService.createSurvey);
-Router.post(
-    '/delete/:id',
-    surveyService.deleteSurveyById
-);
-Router.put(
-    '/update/:id',
-    surveyService.updateSurveyById
-);
-Router.get('/all', surveyService.findAllSurveys);
-Router.get('/to-take/:id', surveyService.findSurveyToTakeById);
+Router.post('/', surveyService.createSurvey);
+Router.delete('/:id', surveyService.deleteSurveyById);
+Router.put('/:id', surveyService.updateSurveyById);
+
+Router.get('/', surveyService.findAllSurveys);
 Router.get('/author/:id', surveyService.findSurveysByAuthorId);
-Router.get('/find/:id', surveyService.findSurveyById);
+Router.get('/:id', surveyService.findSurveyById);
 
 module.exports = Router;

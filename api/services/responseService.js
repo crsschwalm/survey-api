@@ -35,7 +35,7 @@ module.exports = {
     findAllResponses: (req, res) => {
         Response.find((err, responses) => (!!err ? res.send(err) : res.json(responses)));
     },
-    findResponsesByAuthorId: (req, res) => {
+    findResponsesByUserId: (req, res) => {
         const userId = req.params.id
         Response.find({ userRef: userId }, (err, responses) => (!!err ? res.send(err) : res.json(responses)));
     }

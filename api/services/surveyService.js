@@ -5,17 +5,19 @@ mongoose.connect(process.env.MONGODB_URI, { useNewUrlParser: true });
 module.exports = {
     findSurveyById: (req, res) => {
         const surveyId = req.params.id;
-        Survey.findById(
-            surveyId,
-            (err, survey) => (!!err ? res.send(err) : res.json(survey))
-        );
-    },
+        const hideAnswers = !req.query['show-answers'];
 
-    findSurveyToTakeById: (req, res) => {
-        const surveyId = req.params.id;
         Survey.findById(
             surveyId,
-            (err, survey) => (!!err ? res.send(err) : res.json(hideAnswers(survey)))
+            (err, survey) => {
+                if (err) {
+                    res.send(err)
+                } else {
+                    hideAnswers ?
+                        res.json(survey) :
+                        res.json(hideAnswers(survey))
+                }
+            }
         );
     },
 
