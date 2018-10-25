@@ -1,22 +1,19 @@
 # DMI Survey
-### An app built with create-react-app
 
 ## How to use
-Install it and run:
+Just API
+```
+yarn
+yarn start
+```
 
+API & Front End
 ```
 yarn
 cd client
 yarn
 yarn dev
 ```
-
-## Idea behind the example
-DMI Survey application for understanding the basic concepts of JavaScript development.
-* Utilizes AWS - Heroku application Pipeline and MongoDB
-* Utilizes Node Express for server-side functionality
-* Utilizes React for front-end development
-* Authentication via bcrypt hashing on express routes
 
 # API Docs
 Basic Express API connecting to a MongoDB instance.
@@ -61,7 +58,7 @@ required body:
 authorRef<User _id>
 name<String>
 description<String>
-fields<Array of Fields>
+fields<[Field]>
 startDate<Date>(defaults to current time)
 endDate<Date>
 ```
@@ -121,7 +118,7 @@ required body:
 ```
 surveyRef<Survey _id>
 userRef<User _id>
-fieldResponses<Array of FieldResponse>
+fieldResponses<[FieldResponse]>
 timeStamp<Date (defaults to now)>
 ```
 ```
