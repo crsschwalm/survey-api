@@ -19,10 +19,10 @@ module.exports = {
         );
     },
 
-    findAllSurveysByAuthor: (req, res) => {
-        const surveyAuthor = req.params.author;
+    findSurveysByAuthorId: (req, res) => {
+        const authorId = req.params.id;
         Survey.find(
-            { author: surveyAuthor },
+            { authorRef: authorId },
             (err, surveys) => (!!err ? res.send(err) : res.json(surveys))
         );
     },
@@ -51,7 +51,7 @@ module.exports = {
 
     createSurvey: (req, res) => {
         const survey = new Survey();
-        survey.author = req.body.author;
+        survey.authorRef = req.body.authorRef;
         survey.name = req.body.name;
         survey.description = req.body.description;
         survey.fields = req.body.fields;

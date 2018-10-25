@@ -1,4 +1,4 @@
-const User = require("../models/User");
+const { User } = require("../models/User");
 const mongoose = require("mongoose");
 mongoose.connect(process.env.MONGODB_URI, { useNewUrlParser: true });
 
@@ -29,13 +29,20 @@ module.exports = {
       res.json({ message: "Failed adding user, not all credentials provided" });
     }
   },
+  findUserById: (req, res) => {
+    const userId = req.params.id;
+    User.findById(
+      userId,
+      (err, user) => (!!err ? res.send(err) : res.json(user))
+    );
+  },
   authenticate: (req, res) => {
     if (req.body.username && req.body.password) {
       User.authenticate(req.body.username, req.body.password)
         .then((user) => {
           req.session.userId = user._id;
           res.json(
-            { message: "Successfully Logged in!", username: user.username }
+            { message: "Successfully Logged in!", username: user.username, userId: user._id }
           )
         })
         .catch((err) => res.send(err))

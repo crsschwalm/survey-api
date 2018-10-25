@@ -3,12 +3,15 @@ const { SelectFromSchema } = require('./SelectFrom');
 const { CheckAllSchema } = require('./CheckAll');
 const { TextInputSchema } = require('./TextInput');
 const { FieldSchema } = require('./Field');
+const { User } = require('./User');
 
 const Schema = mongoose.Schema;
 
 const SurveySchema = new Schema({
-    id: Schema.Types.ObjectId,
-    author: String,
+    authorRef: {
+        type: Schema.Types.ObjectId,
+        ref: User
+    },
     name: String,
     description: String,
     fields: [FieldSchema],

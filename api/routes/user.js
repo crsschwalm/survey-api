@@ -5,5 +5,6 @@ const Router = express.Router();
 Router.post('/create', userService.createUser);
 Router.post('/authenticate', userService.authenticate);
 Router.get('/logout', userService.logout);
+Router.get('/find/:id', userService.findUserById);
 
 module.exports = Router;

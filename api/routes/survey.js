@@ -11,9 +11,9 @@ Router.put(
     '/update/:id',
     surveyService.updateSurveyById
 );
-Router.get('/author/:author', surveyService.findAllSurveysByAuthor);
 Router.get('/all', surveyService.findAllSurveys);
 Router.get('/to-take/:id', surveyService.findSurveyToTakeById);
-Router.get('/:id', surveyService.findSurveyById);
+Router.get('/author/:id', surveyService.findSurveysByAuthorId);
+Router.get('/find/:id', surveyService.findSurveyById);
 
 module.exports = Router;
