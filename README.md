@@ -12,6 +12,7 @@ API & Front End
 yarn
 cd client
 yarn
+cd ..
 yarn dev
 ```
 
