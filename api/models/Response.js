@@ -1,26 +1,23 @@
 const mongoose = require('mongoose');
 const { Survey } = require('./Survey');
-const { Field } = require('./Field');
+const { User } = require('./User');
+const { FieldResponseSchema } = require('./FieldResponse');
 
 const Schema = mongoose.Schema;
 
 const ResponseSchema = new Schema({
+    userRef: {
+        type: Schema.Types.ObjectId,
+        ref: User,
+        required: true
+    },
     surveyRef: {
         type: Schema.Types.ObjectId,
         ref: Survey,
         required: true
     },
-    responses: [{
-        fieldRef: {
-            type: Schema.Types.ObjectId,
-            ref: Field,
-            required: true
-        }, response: [String]
-        //input: [String]
-        //selection: [ref to label id]
-    }],
+    fieldResponses: [FieldResponseSchema],
+    timeStamp: { type: Date, default: Date.now }
 });
 
-const Response = mongoose.model('Response', ResponseSchema);
-
-module.exports = { Response, ResponseSchema }
+module.exports = mongoose.model('Response', ResponseSchema);

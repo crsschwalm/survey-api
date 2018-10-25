@@ -11,10 +11,18 @@ module.exports = {
         );
     },
 
-    findAllSurveysByAuthor: (req, res) => {
-        const surveyAuthor = req.params.author;
+    findSurveyToTakeById: (req, res) => {
+        const surveyId = req.params.id;
+        Survey.findById(
+            surveyId,
+            (err, survey) => (!!err ? res.send(err) : res.json(hideAnswers(survey)))
+        );
+    },
+
+    findSurveysByAuthorId: (req, res) => {
+        const authorId = req.params.id;
         Survey.find(
-            { author: surveyAuthor },
+            { authorRef: authorId },
             (err, surveys) => (!!err ? res.send(err) : res.json(surveys))
         );
     },
@@ -38,13 +46,12 @@ module.exports = {
         );
     },
 
-    findAllSurveys: (req, res) => {
-        Survey.find((err, surveys) => (!!err ? res.send(err) : res.json(surveys)));
-    },
+    findAllSurveys: (req, res) =>
+        Survey.find((err, surveys) => (!!err ? res.send(err) : res.json(surveys))),
 
-    saveSurvey: (req, res) => {
+    createSurvey: (req, res) => {
         const survey = new Survey();
-        survey.author = req.body.author;
+        survey.authorRef = req.body.authorRef;
         survey.name = req.body.name;
         survey.description = req.body.description;
         survey.fields = req.body.fields;
@@ -56,5 +63,11 @@ module.exports = {
                     ? res.send(err)
                     : res.json({ message: 'Survey successfully added!' })
         );
-    }
+    },
+}
+
+const hideAnswers = (surveyToTake) => {
+    const surveyWithEmptyAnswers = surveyToTake;
+    surveyWithEmptyAnswers.fields.forEach(field => field.expectedResponse = null)
+    return surveyWithEmptyAnswers;
 }
