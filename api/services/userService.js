@@ -4,52 +4,45 @@ mongoose.connect(process.env.MONGODB_URI, { useNewUrlParser: true });
 
 module.exports = {
   createUser: (req, res) => {
-    if (
-      req.body.email &&
-      req.body.username &&
-      req.body.password &&
-      req.body.passwordConf
-    ) {
+    const { email, username, password, passwordConf } = req.body;
+    if (email && username && password && passwordConf) {
       const user = new User();
-      user.email = req.body.email;
-      user.username = req.body.username;
-      user.password = req.body.password;
-      user.passwordConf = req.body.passwordConf;
-      user.save(
-        err => {
-          if (!!err) {
-            res.send(err)
-          } else {
-            req.session.userId = user._id;
-            res.json({ message: "User successfully added!" })
-          }
-        }
-      );
+      user.email = email;
+      user.username = username;
+      user.password = password;
+      user.passwordConf = passwordConf;
+      user.save()
+        .then(user => {
+          req.session.userId = user._id;
+          res.json({ message: "User successfully added!" })
+        })
+        .catch(err => res.send(err))
     } else {
       res.json({ message: "Failed adding user, not all credentials provided" });
     }
   },
+
   findUserById: (req, res) => {
     const userId = req.params.id;
-    User.findById(
-      userId,
-      (err, user) => (!!err ? res.send(err) : res.json(user))
-    );
+    User.findById(userId)
+      .then(user => res.json(user))
+      .catch(err => res.send(err))
   },
+
   authenticate: (req, res) => {
-    if (req.body.username && req.body.password) {
-      User.authenticate(req.body.username, req.body.password)
+    const { username, password } = req.body;
+    if (username && password) {
+      User.authenticate(username, password)
         .then((user) => {
           req.session.userId = user._id;
-          res.json(
-            { message: "Successfully Logged in!", username: user.username, userId: user._id }
-          )
+          res.send("Successfully Logged in! username: " + user.username + " id: " + user._id)
         })
         .catch((err) => res.send(err))
     } else {
-      res.json({ message: "Failed Authentication, Username and Password are required" });
+      res.status(401).send("Failed Authentication, Username and Password are required");
     }
   },
+
   logout: (req, res, next) => {
     req.session && req.session.destroy(function (err) {
       if (err) {
@@ -58,5 +51,31 @@ module.exports = {
         return res.redirect('/');
       }
     });
+  },
+
+  deleteUserById: (req, res) => {
+    const userId = req.params.id;
+    if (req.session.userId === userId) {
+      User.findByIdAndRemove(userId)
+        .then(() => res.json({ message: 'User successfully deleted!' }))
+        .catch(err => res.status(401).send(err))
+    } else {
+      res.status(401).send('You can only edit the User that is currently authorized');
+    }
+  },
+
+  updateUserById: (req, res) => {
+    const userId = req.params.id;
+    if (req.session.userId === userId) {
+      User.findByIdAndUpdate(
+        userId,
+        { $set: req.body },
+        { new: true, upsert: true }
+      )
+        .then(user => res.json(user))
+        .catch(err => res.status(401).send(err))
+    } else {
+      res.status(401).send('You can only edit the User that is currently authorized');
+    }
   }
 }

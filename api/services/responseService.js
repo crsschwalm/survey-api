@@ -4,39 +4,40 @@ mongoose.connect(process.env.MONGODB_URI, { useNewUrlParser: true });
 
 module.exports = {
     sumbitResponse: (req, res) => {
+        const { surveyRef, userRef, fieldResponses } = req.body;
         const response = new Response();
-        response.surveyRef = req.body.surveyRef;
-        response.userRef = req.body.userRef
-        response.fieldResponses = req.body.fieldResponses;
-        response.save(
-            err =>
-                !!err
-                    ? res.send(err)
-                    : res.json({ message: 'Response successfully added!' })
-        );
+        response.surveyRef = surveyRef;
+        response.userRef = userRef
+        response.fieldResponses = fieldResponses;
+        response.save()
+            .then((response) => res.json({ message: 'Response successfully added!', id: response._id }))
+            .catch(err => res.status(401).send(err))
     },
+
     deleteResponseById: (req, res) => {
         const responseId = req.params.id;
-        Response.findByIdAndRemove(
-            responseId,
-            err =>
-                !!err
-                    ? res.send(err)
-                    : res.json({ message: 'Response successfully deleted!' })
-        );
+        Response.findByIdAndRemove(responseId)
+            .then(() => res.json({ message: 'Response successfully deleted!' }))
+            .catch(err => res.status(401).send(err))
     },
-    findResponseBySurveyId: (req, res) => {
+
+    findResponsesBySurveyId: (req, res) => {
         const surveyId = req.params.id;
-        Response.find(
-            { surveyRef: surveyId },
-            (err, response) => (!!err ? res.send(err) : res.json(response))
-        );
+        Response.find({ surveyRef: surveyId })
+            .then(response => res.json(response))
+            .catch(err => res.status(401).send(err))
     },
+
     findAllResponses: (req, res) => {
-        Response.find((err, responses) => (!!err ? res.send(err) : res.json(responses)));
+        Response.find()
+            .then(responses => res.json(responses))
+            .catch(err => res.status(401).send(err))
     },
-    findResponsesByAuthorId: (req, res) => {
+
+    findResponsesByUserId: (req, res) => {
         const userId = req.params.id
-        Response.find({ userRef: userId }, (err, responses) => (!!err ? res.send(err) : res.json(responses)));
+        Response.find({ userRef: userId })
+            .then(responses => res.json(responses))
+            .catch(err => res.status(401).send(err))
     }
 }
