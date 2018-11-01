@@ -10,10 +10,8 @@ yarn start
 API & Front End
 ```
 yarn
-cd client
-yarn
-cd ..
-yarn dev
+yarn dev (with nodemon watch)
+yarn start (without)
 ```
 
 # API Docs
