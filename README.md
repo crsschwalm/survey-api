@@ -1,13 +1,9 @@
 # DMI Survey
 
 ## How to use
-Just API
-```
-yarn
-yarn start
-```
-
-API & Front End
+1. setup a local version of mongoDB 
+2. set .env to include MONGODB_URI
+something like `mongodb://localhost:27017/surveys`
 ```
 yarn
 yarn dev (with nodemon watch)
