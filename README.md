@@ -1,13 +1,12 @@
 # DMI Survey
 
 ## How to use
-1. setup a local version of mongoDB 
-2. set .env to include MONGODB_URI
-something like `mongodb://localhost:27017/surveys`
+1. Add MONGODB_URI to .env
+2. 
 ```
 yarn
-yarn dev (with nodemon watch)
-yarn start (without)
+yarn dev (with watch)
+yarn start
 ```
 
 # API Docs
