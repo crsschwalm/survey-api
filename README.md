@@ -1,19 +1,12 @@
 # DMI Survey
 
 ## How to use
-Just API
+1. Add MONGODB_URI to .env
+2. 
 ```
 yarn
+yarn dev (with watch)
 yarn start
-```
-
-API & Front End
-```
-yarn
-cd client
-yarn
-cd ..
-yarn dev
 ```
 
 # API Docs
