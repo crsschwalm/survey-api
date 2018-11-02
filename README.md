@@ -10,10 +10,8 @@ yarn start
 API & Front End
 ```
 yarn
-cd client
-yarn
-cd ..
-yarn dev
+yarn dev (with nodemon watch)
+yarn start (without)
 ```
 
 # API Docs
@@ -29,7 +27,11 @@ passwordConf: <String>
 ```
 
 ### Routes
-`POST /api/user/create`: Register new user. Hashes Password before inserting into DB
+`GET /api/user/:id`: Returns User object including hashed Password.
+
+`POST /api/user/logout`: Kills session with userId auth
+
+`POST /api/user`: Register new user. Hashes Password before inserting into DB
 
 required body:
 ```
@@ -49,9 +51,6 @@ required body:
     password
 }
 ```
-`POST /logout`: Kills session with userId auth
-
-`GET /find/:id`: Returns User object includeing hashed Password.
 
 ## Survey
 ### Schema
@@ -89,19 +88,19 @@ expectedResponse<String>
 ```
 
 ### Routes
-`GET /survey/all`: return all surveys
+`GET /api/survey`: return all surveys
 
-`GET /survey/find/:id`: return survey for given id
+`GET /api/survey/author/:id`: return all surveys by userId
 
-`GET /survey/author/:id`: return all surveys by userId
+`GET /api/survey/:id`: return survey for given id
 
-`GET /survey/to-take/:id`: return survey with expected responses hidden for given id
+`GET /api/survey/:id?show-answers=true`: return survey with expected responses
 
-`PUT /survey/update/:id`: update Survey based on request body
+`PUT /api/survey/:id`: update Survey based on request body
 
-`POST /survey/delete/:id`: delete the survey for given id
+`DELETE /api/survey/:id`: delete the survey for given id
 
-`POST /survey/create`: create Survey with body content.
+`POST /api/survey`: create Survey with body content.
 
 required body:
 ```
@@ -127,4 +126,23 @@ FieldResponse
 -------------
     fieldRef<Field _id>
     response<[String]>
+```
+
+### Routes
+`GET /api/response/`: Get All Survey Responses
+
+`GET /api/response/user/:id`: Get All Survey Responses by User ID
+
+`DELETE /api/response/:id`: Delete Survey Response for ID
+
+`POST /api/response/`: Submit Survey Response
+
+Required
+required body:
+```
+{ 
+    surveyRef, 
+    userRef, 
+    fieldResponses 
+}
 ```
