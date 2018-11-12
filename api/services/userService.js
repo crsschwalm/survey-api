@@ -15,10 +15,7 @@ module.exports = {
       user.passwordConf = passwordConf;
       user
         .save()
-        .then(user => {
-          req.session.userId = user._id;
-          res.json({ message: "User successfully added!" });
-        })
+        .then(user => res.json({ message: "User successfully added!" }))
         .catch(err => res.status(401).send(err));
     } else {
       res
@@ -38,15 +35,14 @@ module.exports = {
     const { username, password } = req.body;
     if (username && password) {
       User.authenticate(username, password)
-        .then(user => {
-          req.session.userId = user._id;
+        .then(user =>
           res.send(
             "Successfully Logged in! username: " +
               user.username +
               " id: " +
               user._id
-          );
-        })
+          )
+        )
         .catch(err => res.status(401).send(err));
     } else {
       res
@@ -55,44 +51,21 @@ module.exports = {
     }
   },
 
-  logout: (req, res, next) => {
-    req.session &&
-      req.session.destroy(function(err) {
-        if (err) {
-          return next(err);
-        } else {
-          return res.redirect("/");
-        }
-      });
-  },
-
   deleteUserById: (req, res) => {
     const userId = req.params.id;
-    if (req.session.userId === userId) {
-      User.findByIdAndRemove(userId)
-        .then(() => res.json({ message: "User successfully deleted!" }))
-        .catch(err => res.status(401).send(err));
-    } else {
-      res
-        .status(401)
-        .send("You can only edit the User that is currently authorized");
-    }
+    User.findByIdAndRemove(userId)
+      .then(() => res.json({ message: "User successfully deleted!" }))
+      .catch(err => res.status(401).send(err));
   },
 
   updateUserById: (req, res) => {
     const userId = req.params.id;
-    if (req.session.userId === userId) {
-      User.findByIdAndUpdate(
-        userId,
-        { $set: req.body },
-        { new: true, upsert: true }
-      )
-        .then(user => res.json(user))
-        .catch(err => res.status(401).send(err));
-    } else {
-      res
-        .status(401)
-        .send("You can only edit the User that is currently authorized");
-    }
+    User.findByIdAndUpdate(
+      userId,
+      { $set: req.body },
+      { new: true, upsert: true }
+    )
+      .then(user => res.json(user))
+      .catch(err => res.status(401).send(err));
   }
 };
