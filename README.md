@@ -2,7 +2,7 @@
 
 ## How to use
 1. Add MONGODB_URI to .env
-2. 
+2.
 ```
 yarn
 yarn dev (with watch)
@@ -23,8 +23,6 @@ passwordConf: <String>
 
 ### Routes
 `GET /api/user/:id`: Returns User object including hashed Password.
-
-`POST /api/user/logout`: Kills session with userId auth
 
 `POST /api/user`: Register new user. Hashes Password before inserting into DB
 
@@ -74,8 +72,8 @@ expectedResponse<[String]>
 ```
 * __SelectFrom__
 ```
-options<String>
-expectedResponse<String>
+options<[String]>
+expectedResponse<[String]>
 ```
 * __TextInput__
 ```
@@ -135,9 +133,9 @@ FieldResponse
 Required
 required body:
 ```
-{ 
-    surveyRef, 
-    userRef, 
-    fieldResponses 
+{
+    surveyRef,
+    userRef,
+    fieldResponses
 }
 ```
