@@ -26,12 +26,10 @@
     "nivo": "^0.31.0"
   },
   "devDependencies": {
-    "concurrently": "^3.6.0",
     "nodemon": "^1.17.5"
   },
   "keywords": [
     "node",
-    "express",
-    "create-react-app"
+    "express"
   ]
 }
