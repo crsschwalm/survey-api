@@ -12,6 +12,8 @@ yarn start
 # API Docs
 Basic Express API connecting to a MongoDB instance.
 
+See list of all Rest endpoints by navigating to root of app (`HTTP GET "/"`)
+
 ## User
 ### Schema
 ```
@@ -125,6 +127,8 @@ FieldResponse
 `GET /api/response/`: Get All Survey Responses
 
 `GET /api/response/user/:id`: Get All Survey Responses by User ID
+
+`GET /api/survey/:id/response`: return Responses for given Survey id
 
 `DELETE /api/response/:id`: Delete Survey Response for ID
 
