@@ -21,7 +21,6 @@
     "cors": "^2.8.5",
     "dotenv": "^6.0.0",
     "express": "^4.16.3",
-    "express-session": "^1.15.6",
     "http-auth": "^3.2.3",
     "mongoose": "^5.0.14",
     "nivo": "^0.31.0"

@@ -72,8 +72,8 @@ expectedResponse<[String]>
 ```
 * __SelectFrom__
 ```
-options<String>
-expectedResponse<String>
+options<[String]>
+expectedResponse<[String]>
 ```
 * __TextInput__
 ```
