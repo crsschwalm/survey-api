@@ -13,7 +13,7 @@ const app = express();
 app
   .use(bodyParser.urlencoded({ extended: true }))
   .use(bodyParser.json())
-  .use(cors({ credentials: true }));
+  .use(cors({ credentials: true, origin: true }));
 
 app.use("/api", routes);
 app.get("/", (req, res) => res.json(listEndpoints(app)));
