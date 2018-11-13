@@ -15,7 +15,7 @@ module.exports = {
       user.passwordConf = passwordConf;
       user
         .save()
-        .then(user => res.json({ message: "User successfully added!" }))
+        .then(user => res.json(user))
         .catch(err => res.status(401).send(err));
     } else {
       res
@@ -35,14 +35,7 @@ module.exports = {
     const { username, password } = req.body;
     if (username && password) {
       User.authenticate(username, password)
-        .then(user =>
-          res.send(
-            "Successfully Logged in! username: " +
-              user.username +
-              " id: " +
-              user._id
-          )
-        )
+        .then(user => res.json(user))
         .catch(err => res.status(401).send(err));
     } else {
       res
