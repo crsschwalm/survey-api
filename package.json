@@ -11,7 +11,7 @@
     "start": "node server.js"
   },
   "engines": {
-    "node": "9.0.0",
+    "node": "8.12.0",
     "yarn": "1.9.4"
   },
   "dependencies": {
