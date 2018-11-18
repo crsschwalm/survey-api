@@ -51,8 +51,9 @@ module.exports = {
     return Promise.all(saveSurveys)
       .then(responses => {
         //respond 'success' if any surveys are saved
-        if (responses.filter(response => response.success).length > 0)
-          res.status(200).json(responses);
+        if (responses.filter(response => response.success).length > 0) {
+          return res.status(200).json(responses);
+        }
         throw responses;
       })
       .catch(error => res.status(401).send(error));
@@ -69,7 +70,12 @@ const hideAnswers = surveyToTake => {
 
 const saveSurvey = surveyInfo => {
   const survey = new Survey(surveyInfo);
-  return survey.save().then(handleGoodSurveyReq);
+  return survey
+    .save()
+    .then(handleGoodSurveyReq)
+    .catch(error => {
+      throw error;
+    });
 };
 
 const validateRequest = request => {

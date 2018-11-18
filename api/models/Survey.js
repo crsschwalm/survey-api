@@ -27,4 +27,21 @@ SurveySchema.path('fields').discriminator('CheckAll', CheckAllSchema);
 SurveySchema.path('fields').discriminator('TextInput', TextInputSchema);
 SurveySchema.path('fields').discriminator('YesNo', YesNoSchema);
 
+//default active status by end date in future
+SurveySchema.pre('save', async function(next) {
+  const survey = this;
+  try {
+    if (survey.isActive === undefined) {
+      const currentTime = new Date();
+      const startDate = new Date(survey.startDate);
+      const endDate = new Date(survey.endDate);
+      survey.isActive = endDate - startDate > 0 && endDate - currentTime > 0;
+    }
+    next();
+  } catch (err) {
+    console.error(err);
+    next(err);
+  }
+});
+
 module.exports = mongoose.model('Survey', SurveySchema);
