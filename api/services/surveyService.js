@@ -1,22 +1,19 @@
 const Survey = require('../models/Survey');
+const { validateSurveyRequest } = require('./validationService');
 const mongoose = require('mongoose');
 mongoose.connect(process.env.MONGODB_URI, { useNewUrlParser: true });
 
 module.exports = {
   findSurveyById: (req, res) => {
     const surveyId = req.params.id;
-    const showAnswers = req.query['show-answers'] === 'true';
     Survey.findById(surveyId)
-      .then(
-        survey =>
-          showAnswers ? res.json(survey) : res.json(hideAnswers(survey))
-      )
+      .then(survey => res.json(survey))
       .catch(err => res.status(401).send(err));
   },
 
   findSurveysByAuthorId: (req, res) => {
     const authorId = req.params.id;
-    Survey.find({ authorRef: authorId })
+    Survey.find({ 'author.authorRef': authorId })
       .then(survey => res.json(survey))
       .catch(err => res.status(401).send(err));
   },
@@ -43,7 +40,7 @@ module.exports = {
 
   createSurvey: (req, res) => {
     const saveSurveys = [].concat(req.body).map(surveyRequest =>
-      validateRequest(surveyRequest)
+      validateSurveyRequest(surveyRequest)
         .then(saveSurvey)
         .catch(handleBadSurveyReq)
     );
@@ -60,14 +57,6 @@ module.exports = {
   }
 };
 
-const hideAnswers = surveyToTake => {
-  const surveyWithEmptyAnswers = surveyToTake;
-  surveyWithEmptyAnswers.fields.forEach(
-    field => (field.expectedResponse = null)
-  );
-  return surveyWithEmptyAnswers;
-};
-
 const saveSurvey = surveyInfo => {
   const survey = new Survey(surveyInfo);
   return survey
@@ -77,22 +66,6 @@ const saveSurvey = surveyInfo => {
       throw error;
     });
 };
-
-const validateRequest = request => {
-  const { authorRef, name, description, fields } = request;
-
-  return new Promise((resolve, reject) => {
-    isUndefined(authorRef) && reject('Required Fields Missing: "authorRef"');
-    isUndefined(name) && reject('Required Fields Missing: "name"');
-    isUndefined(description) &&
-      reject('Required Fields Missing: "description"');
-    isUndefined(fields) && reject('Required Fields Missing: "fields"');
-
-    resolve(request);
-  });
-};
-
-const isUndefined = element => element === undefined;
 
 const handleBadSurveyReq = error => ({
   message: 'Survey failed to add',

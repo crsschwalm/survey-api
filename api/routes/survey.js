@@ -1,16 +1,20 @@
 const express = require('express');
 const surveyService = require('../services/surveyService');
 const responseService = require('../services/responseService');
+const authenticate = require('../services/authenticationService');
 const Router = express.Router();
 
-Router.post('/', surveyService.createSurvey)
-    .get('/', surveyService.findAllSurveys);
+Router.get('/', surveyService.findAllSurveys).post(
+  '/',
+  authenticate,
+  surveyService.createSurvey
+);
 
 Router.get('/author/:id', surveyService.findSurveysByAuthorId);
 
-Router.delete('/:id', surveyService.deleteSurveyById)
-    .put('/:id', surveyService.updateSurveyById)
-    .get('/:id', surveyService.findSurveyById);
+Router.get('/:id', surveyService.findSurveyById)
+  .put('/:id', authenticate, surveyService.updateSurveyById)
+  .delete('/:id', authenticate, surveyService.deleteSurveyById);
 
 Router.get('/:id/response', responseService.findResponsesBySurveyId);
 

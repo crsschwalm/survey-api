@@ -1,0 +1,286 @@
+[
+    {
+        "author": {
+            "authorRef": "5bdb8e95e6182500166e9e95",
+            "username": "user1"
+        },
+        "name": "Example Survey",
+        "description": "This is an example of what a survey could look like",
+        "fields": [
+            {
+                "fieldType": "TextInput",
+                "question": "Tell me something"
+            },
+            {
+                "fieldType": "YesNo",
+                "question": "Would you?"
+            },
+            {
+                "fieldType": "TrueFalse",
+                "question": "I am older than 10years old"
+            },
+            {
+                "fieldType": "SelectFrom",
+                "question": "Select the one that applies",
+                "options": [
+                    "first option",
+                    "second option",
+                    "third option"
+                ]
+            },
+            {
+                "fieldType": "CheckAll",
+                "question": "Check all That apply",
+                "options": [
+                    "first check",
+                    "second check",
+                    "third check"
+                ]
+            }
+        ],
+        "startDate": "April 5, 2018",
+        "endDate": "December 25, 2018"
+    },
+    {
+        "author": {
+            "authorRef": "5bdb8e95e6182500166e9e95",
+            "username": "user1"
+        },
+        "name": "Example Survey 2",
+        "description": "This too is an example of what a survey could look like",
+        "fields": [
+            {
+                "fieldType": "YesNo",
+                "question": "Would you?"
+            },
+            {
+                "fieldType": "TrueFalse",
+                "question": "I am older than 10years old"
+            },
+            {
+                "fieldType": "SelectFrom",
+                "question": "Select the one that applies",
+                "options": [
+                    "first option",
+                    "second option",
+                    "third option"
+                ]
+            },
+            {
+                "fieldType": "TextInput",
+                "question": "Tell me something"
+            },
+            {
+                "fieldType": "CheckAll",
+                "question": "Check all That apply",
+                "options": [
+                    "first check",
+                    "second check",
+                    "third check"
+                ]
+            }
+        ],
+        "startDate": "April 5, 2018",
+        "endDate": "December 25, 2018",
+        "isActive": false
+    },
+    {
+        "author": {
+            "authorRef": "5bdb8e95e6182500166e9e95",
+            "username": "user1"
+        },
+        "name": "Example Survey 3",
+        "description": "This is an example of what a survey could look like",
+        "fields": [
+            {
+                "fieldType": "TextInput",
+                "question": "Tell me something"
+            },
+            {
+                "fieldType": "YesNo",
+                "question": "Would you?"
+            },
+            {
+                "fieldType": "TrueFalse",
+                "question": "I am older than 10years old"
+            },
+            {
+                "fieldType": "SelectFrom",
+                "question": "Select the one that applies",
+                "options": [
+                    "first option",
+                    "second option",
+                    "third option"
+                ]
+            },
+            {
+                "fieldType": "CheckAll",
+                "question": "Check all That apply",
+                "options": [
+                    "first check",
+                    "second check",
+                    "third check"
+                ]
+            }
+        ],
+        "startDate": "April 5, 2018",
+        "endDate": "December 25, 2018"
+    },
+    {
+        "author": {
+            "authorRef": "5bdb8e95e6182500166e9e95",
+            "username": "user1"
+        },
+        "name": "Example Survey 4",
+        "description": "This is an example of what a survey could look like",
+        "fields": [
+            {
+                "fieldType": "TextInput",
+                "question": "Tell me something"
+            },
+            {
+                "fieldType": "YesNo",
+                "question": "Would you?"
+            },
+            {
+                "fieldType": "TrueFalse",
+                "question": "I am older than 10years old"
+            },
+            {
+                "fieldType": "SelectFrom",
+                "question": "Select the one that applies",
+                "options": [
+                    "first option",
+                    "second option",
+                    "third option"
+                ]
+            },
+            {
+                "fieldType": "CheckAll",
+                "question": "Check all That apply",
+                "options": [
+                    "first check",
+                    "second check",
+                    "third check"
+                ]
+            }
+        ],
+        "startDate": "April 5, 2018",
+        "endDate": "December 25, 2018"
+    },
+    {
+        "author": {
+            "authorRef": "5bdb8e95e6182500166e9e95",
+            "username": "user1"
+        },
+        "name": "Example Survey 5",
+        "description": "This is an example of what a survey could look like",
+        "fields": [
+            {
+                "fieldType": "CheckAll",
+                "question": "Check all That apply",
+                "options": [
+                    "first check",
+                    "second check",
+                    "third check"
+                ]
+            }
+        ],
+        "startDate": "April 5, 2018",
+        "endDate": "December 25, 2018"
+    },
+    //missing Fields ex
+    {
+        "author": {
+            "authorRef": "5bdb8e95e6182500166e9e95",
+            "username": "user1"
+        },
+        "name": "Example Survey",
+        "description": "This is an example of what a survey could look like",
+        "startDate": "April 5, 2018",
+        "endDate": "December 25, 2018"
+    },
+    //missing Name ex
+    {
+        "author": {
+            "authorRef": "5bdb8e95e6182500166e9e95",
+            "username": "user1"
+        },
+        "description": "This is an example of what a survey could look like",
+        "fields": [
+            {
+                "fieldType": "TextInput",
+                "question": "Tell me something"
+            },
+            {
+                "fieldType": "YesNo",
+                "question": "Would you?"
+            },
+            {
+                "fieldType": "TrueFalse",
+                "question": "I am older than 10years old"
+            },
+            {
+                "fieldType": "SelectFrom",
+                "question": "Select the one that applies",
+                "options": [
+                    "first option",
+                    "second option",
+                    "third option"
+                ]
+            },
+            {
+                "fieldType": "CheckAll",
+                "question": "Check all That apply",
+                "options": [
+                    "first check",
+                    "second check",
+                    "third check"
+                ]
+            }
+        ],
+        "startDate": "April 5, 2018",
+        "endDate": "December 25, 2018"
+    },
+    {
+        "author": {
+            "authorRef": "5bdb8e95e6182500166e9e95",
+            "username": "user1"
+        },
+        "name": "Example Survey",
+        "description": "This is an example of what a survey could look like",
+        "fields": [
+            {
+                "fieldType": "TextInput",
+                "question": "Tell me something"
+            },
+            {
+                "fieldType": "SelectFrom",
+                "question": "Select the one that applies",
+                "options": [
+                    "first option",
+                    "second option",
+                    "third option"
+                ]
+            }
+        ],
+        "startDate": "April 5, 2018",
+        "endDate": "December 25, 2018"
+    },
+    {
+        "author": {
+            "authorRef": "5bdb8e95e6182500166e9e95",
+            "username": "user1"
+        },
+        "name": "Example Survey",
+        "description": "This is an example of what a survey could look like",
+        "fields": [
+            {
+                "fieldType": "TextInput",
+                "question": "Tell me something"
+            }
+        ],
+        "startDate": "April 5, 2018",
+        "endDate": "December 25, 2018"
+    }
+]
