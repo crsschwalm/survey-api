@@ -1,17 +1,16 @@
 const mongoose = require('mongoose');
-const { SelectFromSchema } = require('./SelectFrom');
-const { CheckAllSchema } = require('./CheckAll');
-const { TextInputSchema } = require('./TextInput');
-const { YesNoSchema } = require('./YesNo');
 const { FieldSchema } = require('./Field');
 const { User } = require('./User');
 
 const Schema = mongoose.Schema;
 
 const SurveySchema = new Schema({
-  authorRef: {
-    type: Schema.Types.ObjectId,
-    ref: User
+  author: {
+    username: String,
+    authorRef: {
+      type: Schema.Types.ObjectId,
+      ref: User
+    }
   },
   name: String,
   description: String,
@@ -22,10 +21,18 @@ const SurveySchema = new Schema({
   isActive: Boolean
 });
 
-SurveySchema.path('fields').discriminator('SelectFrom', SelectFromSchema);
-SurveySchema.path('fields').discriminator('CheckAll', CheckAllSchema);
-SurveySchema.path('fields').discriminator('TextInput', TextInputSchema);
-SurveySchema.path('fields').discriminator('YesNo', YesNoSchema);
+SurveySchema.path('fields').discriminator(
+  'CheckAll',
+  new Schema({
+    options: [String]
+  })
+);
+SurveySchema.path('fields').discriminator(
+  'SelectFrom',
+  new Schema({
+    options: [String]
+  })
+);
 
 //default active status by end date in future
 SurveySchema.pre('save', async function(next) {
