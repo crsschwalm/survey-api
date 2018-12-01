@@ -1,5 +1,4 @@
 const { User } = require('../models/User');
-const { validateUserRequest } = require('./validationService');
 const mongoose = require('mongoose');
 mongoose
   .connect(process.env.MONGODB_URI, { useNewUrlParser: true })
@@ -7,12 +6,10 @@ mongoose
 
 module.exports = {
   createUser: (req, res) => {
-    const { email, username, password, passwordConf } = req.body;
-    validateUserRequest(req.body)
-      .then(validRequest => {
-        const user = new User(validRequest);
-        return user.save().then(user => res.json(user));
-      })
+    const user = new User(req.body);
+    return user
+      .save()
+      .then(user => res.json(user))
       .catch(err => res.status(401).send(err));
   },
 

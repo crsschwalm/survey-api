@@ -6,31 +6,52 @@ const Schema = mongoose.Schema;
 
 const SurveySchema = new Schema({
   author: {
-    username: String,
-    authorRef: {
-      type: Schema.Types.ObjectId,
-      ref: User
+    username: {
+      type: String,
+      required: [true, 'Field Required: author.username'],
+      authorRef: {
+        type: Schema.Types.ObjectId,
+        ref: User,
+        required: [true, 'Field Required: author.authorRef']
+      }
     }
   },
-  name: String,
-  description: String,
-  fields: [FieldSchema],
+  name: {
+    type: String,
+    required: [true, 'Field Required: name']
+  },
+  description: {
+    type: String,
+    required: [true, 'Field Required: description']
+  },
+  fields: {
+    type: [FieldSchema],
+    required: [true, 'Field Required: fields']
+  },
   startDate: { type: Date, default: Date.now },
-  endDate: { type: Date },
+  endDate: {
+    type: Date,
+    required: false
+  },
   timeStamp: { type: Date, default: Date.now },
-  isActive: Boolean
+  isActive: {
+    type: Boolean,
+    default: true
+  }
 });
 
 SurveySchema.path('fields').discriminator(
   'CheckAll',
   new Schema({
-    options: [String]
+    type: [String],
+    required: [true, 'Field Required: options']
   })
 );
 SurveySchema.path('fields').discriminator(
   'SelectFrom',
   new Schema({
-    options: [String]
+    type: [String],
+    required: [true, 'Field Required: options']
   })
 );
 

@@ -10,9 +10,12 @@ const ResponseSchema = new Schema({
   surveyRef: {
     type: Schema.Types.ObjectId,
     ref: Survey,
-    required: true
+    required: [true, 'Field Required: surveyRef']
   },
-  fieldResponses: [FieldResponseSchema],
+  fieldResponses: {
+    type: [FieldResponseSchema],
+    required: [true, 'Field Required: fieldResponses']
+  },
   timeStamp: { type: Date, default: Date.now }
 });
 

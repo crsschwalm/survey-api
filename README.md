@@ -1,8 +1,7 @@
 # DMI Survey
 
 ## How to use
-1. Add MONGODB_URI to .env
-2.
+**First** Add MONGODB_URI to .env
 ```
 yarn
 yarn dev (with watch)
@@ -55,7 +54,7 @@ required body:
 ```
 author: {
     authorRef<User _id>
-    username>String>
+    username<String>
 }
 name<String>
 description<String>
@@ -70,8 +69,11 @@ Field
     fieldType<String>
 ```
 
-fieldType: determines the schema to use. using the following keys "CheckAll" and "SelectFrom" will give the Field Schema an options array. Any text input is valid and can be helpful for front end enterpretation of field types (yes/no, text input, true/false, etc.)
-Also useful in determining the presentational component based on this fieldType
+fieldType: Determines the schema to use for a survey question. This is useful in determining the presentational component based on this fieldType
+
+Valid options are: 'TextInput', 'YesNo', 'Boolean', 'CheckAll', 'SelectFrom'
+
+"CheckAll" and "SelectFrom" will give the Field Schema an options array.
 
 * __CheckAll__
 ```
