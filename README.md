@@ -102,7 +102,7 @@ options<[String]>
 required body:
 ```
 {
-    {
+    author: {
         authorRef,
         username
     }
