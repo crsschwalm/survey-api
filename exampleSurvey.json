@@ -1,7 +1,7 @@
 [
     {
         "author": {
-            "authorRef": "5bdb8e95e6182500166e9e95",
+            "authorRef": "5c05772aa93b000015a8dbe1",
             "username": "user1"
         },
         "name": "Example Survey",
@@ -16,7 +16,7 @@
                 "question": "Would you?"
             },
             {
-                "fieldType": "TrueFalse",
+                "fieldType": "Boolean",
                 "question": "I am older than 10years old"
             },
             {
@@ -43,7 +43,7 @@
     },
     {
         "author": {
-            "authorRef": "5bdb8e95e6182500166e9e95",
+            "authorRef": "5c05772aa93b000015a8dbe1",
             "username": "user1"
         },
         "name": "Example Survey 2",
@@ -54,7 +54,7 @@
                 "question": "Would you?"
             },
             {
-                "fieldType": "TrueFalse",
+                "fieldType": "Boolean",
                 "question": "I am older than 10years old"
             },
             {
@@ -86,7 +86,7 @@
     },
     {
         "author": {
-            "authorRef": "5bdb8e95e6182500166e9e95",
+            "authorRef": "5c05772aa93b000015a8dbe1",
             "username": "user1"
         },
         "name": "Example Survey 3",
@@ -101,7 +101,7 @@
                 "question": "Would you?"
             },
             {
-                "fieldType": "TrueFalse",
+                "fieldType": "Boolean",
                 "question": "I am older than 10years old"
             },
             {
@@ -128,7 +128,7 @@
     },
     {
         "author": {
-            "authorRef": "5bdb8e95e6182500166e9e95",
+            "authorRef": "5c05772aa93b000015a8dbe1",
             "username": "user1"
         },
         "name": "Example Survey 4",
@@ -143,7 +143,7 @@
                 "question": "Would you?"
             },
             {
-                "fieldType": "TrueFalse",
+                "fieldType": "Boolean",
                 "question": "I am older than 10years old"
             },
             {
@@ -170,7 +170,7 @@
     },
     {
         "author": {
-            "authorRef": "5bdb8e95e6182500166e9e95",
+            "authorRef": "5c05772aa93b000015a8dbe1",
             "username": "user1"
         },
         "name": "Example Survey 5",
@@ -192,7 +192,7 @@
     //missing Fields ex
     {
         "author": {
-            "authorRef": "5bdb8e95e6182500166e9e95",
+            "authorRef": "5c05772aa93b000015a8dbe1",
             "username": "user1"
         },
         "name": "Example Survey",
@@ -203,7 +203,7 @@
     //missing Name ex
     {
         "author": {
-            "authorRef": "5bdb8e95e6182500166e9e95",
+            "authorRef": "5c05772aa93b000015a8dbe1",
             "username": "user1"
         },
         "description": "This is an example of what a survey could look like",
@@ -217,7 +217,7 @@
                 "question": "Would you?"
             },
             {
-                "fieldType": "TrueFalse",
+                "fieldType": "Boolean",
                 "question": "I am older than 10years old"
             },
             {
@@ -244,7 +244,7 @@
     },
     {
         "author": {
-            "authorRef": "5bdb8e95e6182500166e9e95",
+            "authorRef": "5c05772aa93b000015a8dbe1",
             "username": "user1"
         },
         "name": "Example Survey",
@@ -269,7 +269,7 @@
     },
     {
         "author": {
-            "authorRef": "5bdb8e95e6182500166e9e95",
+            "authorRef": "5c05772aa93b000015a8dbe1",
             "username": "user1"
         },
         "name": "Example Survey",

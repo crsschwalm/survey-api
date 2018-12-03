@@ -8,12 +8,12 @@ const SurveySchema = new Schema({
   author: {
     username: {
       type: String,
-      required: [true, 'Field Required: author.username'],
-      authorRef: {
-        type: Schema.Types.ObjectId,
-        ref: User,
-        required: [true, 'Field Required: author.authorRef']
-      }
+      required: [true, 'Field Required: author.username']
+    },
+    authorRef: {
+      type: Schema.Types.ObjectId,
+      ref: User,
+      required: [true, 'Field Required: author.authorRef']
     }
   },
   name: {
