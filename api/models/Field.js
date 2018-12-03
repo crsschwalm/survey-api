@@ -26,11 +26,7 @@ FieldSchema.pre('save', async function(next) {
     if (isValid) {
       next();
     } else {
-      throw {
-        message: 'fieldType did not match expected schema',
-        success: false,
-        expected: validFieldTypes
-      };
+      throw 'fieldType did not match expected schema';
     }
   } catch (err) {
     console.error(err);

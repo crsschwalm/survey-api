@@ -43,15 +43,19 @@ const SurveySchema = new Schema({
 SurveySchema.path('fields').discriminator(
   'CheckAll',
   new Schema({
-    type: [String],
-    required: [true, 'Field Required: options']
+    options: {
+      type: [String],
+      required: [true, 'Field Required: options']
+    }
   })
 );
 SurveySchema.path('fields').discriminator(
   'SelectFrom',
   new Schema({
-    type: [String],
-    required: [true, 'Field Required: options']
+    options: {
+      type: [String],
+      required: [true, 'Field Required: options']
+    }
   })
 );
 
