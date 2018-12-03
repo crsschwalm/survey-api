@@ -1,20 +1,20 @@
 const Response = require('../models/Response');
-const { validateResponseRequest } = require('./validationService');
 const mongoose = require('mongoose');
-mongoose.connect(process.env.MONGODB_URI, { useNewUrlParser: true });
+mongoose
+  .connect(process.env.MONGODB_URI, { useNewUrlParser: true })
+  .catch(console.error);
 
 module.exports = {
   sumbitResponse: (req, res) => {
-    validateResponseRequest(req.body)
-      .then(validResponse => {
-        const response = new Response(validResponse);
-        return response.save().then(submittedResponse =>
-          res.json({
-            message: 'Response successfully added!',
-            id: submittedResponse._id
-          })
-        );
-      })
+    const response = new Response(req.body);
+    return response
+      .save()
+      .then(submittedResponse =>
+        res.json({
+          message: 'Response successfully added!',
+          id: submittedResponse._id
+        })
+      )
       .catch(err => res.status(401).send(err));
   },
 

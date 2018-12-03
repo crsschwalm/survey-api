@@ -1,7 +1,8 @@
 const Survey = require('../models/Survey');
-const { validateSurveyRequest } = require('./validationService');
 const mongoose = require('mongoose');
-mongoose.connect(process.env.MONGODB_URI, { useNewUrlParser: true });
+mongoose
+  .connect(process.env.MONGODB_URI, { useNewUrlParser: true })
+  .catch(console.error);
 
 module.exports = {
   findSurveyById: (req, res) => {
@@ -39,11 +40,11 @@ module.exports = {
   },
 
   createSurvey: (req, res) => {
-    const saveSurveys = [].concat(req.body).map(surveyRequest =>
-      validateSurveyRequest(surveyRequest)
-        .then(saveSurvey)
-        .catch(handleBadSurveyReq)
-    );
+    const saveSurveys = []
+      .concat(req.body)
+      .map(surveyRequest =>
+        saveSurvey(surveyRequest).catch(handleBadSurveyReq)
+      );
 
     return Promise.all(saveSurveys)
       .then(responses => {
