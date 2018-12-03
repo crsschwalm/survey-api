@@ -16,7 +16,10 @@ module.exports = {
   findUserById: (req, res) => {
     const userId = req.params.id;
     User.findById(userId)
-      .then(user => res.json(user))
+      .then(user => {
+        const { password, passwordConf, userInfo } = user;
+        return res.json(userInfo);
+      })
       .catch(err => res.status(401).send(err));
   },
 

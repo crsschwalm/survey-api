@@ -26,7 +26,7 @@ passwordConf: <String>
 ```
 
 ### Routes
-`GET /api/user/:id`: Returns User object including hashed Password.
+`GET /api/user/:id`: Returns UserInfo object (everything except password)
 
 `POST /api/user`: Register new user. Hashes Password before inserting into DB
 
