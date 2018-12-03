@@ -1,27 +1,16 @@
-const { User } = require("../models/User");
-const mongoose = require("mongoose");
+const { User } = require('../models/User');
+const mongoose = require('mongoose');
 mongoose
   .connect(process.env.MONGODB_URI, { useNewUrlParser: true })
   .catch(console.error);
 
 module.exports = {
   createUser: (req, res) => {
-    const { email, username, password, passwordConf } = req.body;
-    if (email && username && password && passwordConf) {
-      const user = new User();
-      user.email = email;
-      user.username = username;
-      user.password = password;
-      user.passwordConf = passwordConf;
-      user
-        .save()
-        .then(user => res.json(user))
-        .catch(err => res.status(401).send(err));
-    } else {
-      res
-        .status(401)
-        .json({ message: "Failed adding user, not all credentials provided" });
-    }
+    const user = new User(req.body);
+    return user
+      .save()
+      .then(user => res.json(user))
+      .catch(err => res.status(401).send(err));
   },
 
   findUserById: (req, res) => {
@@ -40,14 +29,14 @@ module.exports = {
     } else {
       res
         .status(401)
-        .send("Failed Authentication, Username and Password are required");
+        .send('Failed Authentication, Username and Password are required');
     }
   },
 
   deleteUserById: (req, res) => {
     const userId = req.params.id;
     User.findByIdAndRemove(userId)
-      .then(() => res.json({ message: "User successfully deleted!" }))
+      .then(() => res.json({ message: 'User successfully deleted!' }))
       .catch(err => res.status(401).send(err));
   },
 

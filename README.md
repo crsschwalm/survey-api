@@ -1,8 +1,7 @@
 # DMI Survey
 
 ## How to use
-1. Add MONGODB_URI to .env
-2.
+**First** Add MONGODB_URI to .env
 ```
 yarn
 yarn dev (with watch)
@@ -13,6 +12,9 @@ yarn start
 Basic Express API connecting to a MongoDB instance.
 
 See list of all Rest endpoints by navigating to root of app (`HTTP GET "/"`)
+
+**AUTHENTICATION**
+All GET routes are open (get response is not open. post response is open) all post/put/delete & response get are behind basic auth. To access these, pass credentials from a User type
 
 ## User
 ### Schema
@@ -50,7 +52,10 @@ required body:
 ## Survey
 ### Schema
 ```
-authorRef<User _id>
+author: {
+    authorRef<User _id>
+    username<String>
+}
 name<String>
 description<String>
 fields<[Field]>
@@ -64,22 +69,19 @@ Field
     fieldType<String>
 ```
 
-fieldType: determines the schema to use.
-Also useful in determining the presentational component based on this fieldType
+fieldType: Determines the schema to use for a survey question. This is useful in determining the presentational component based on this fieldType
+
+Valid options are: 'TextInput', 'YesNo', 'Boolean', 'CheckAll', 'SelectFrom'
+
+"CheckAll" and "SelectFrom" will give the Field Schema an options array.
 
 * __CheckAll__
 ```
 options<[String]>
-expectedResponse<[String]>
 ```
 * __SelectFrom__
 ```
 options<[String]>
-expectedResponse<[String]>
-```
-* __TextInput__
-```
-expectedResponse<String>
 ```
 
 ### Routes
@@ -89,18 +91,21 @@ expectedResponse<String>
 
 `GET /api/survey/:id`: return survey for given id
 
-`GET /api/survey/:id?show-answers=true`: return survey with expected responses
+`GET /api/survey/:id/response`: return Responses for given Survey id
 
 `PUT /api/survey/:id`: update Survey based on request body
 
 `DELETE /api/survey/:id`: delete the survey for given id
 
-`POST /api/survey`: create Survey with body content.
+`POST /api/survey`: create Survey with body content. request body can be array of objects for batch post
 
 required body:
 ```
 {
-    authorRef
+    author: {
+        authorRef,
+        username
+    }
     name
     description
     fields
@@ -112,7 +117,7 @@ required body:
 ### Schema
 ```
 surveyRef<Survey _id>
-userRef<User _id>
+surveyTaker<String default 'Anonymous'>
 fieldResponses<[FieldResponse]>
 timeStamp<Date (defaults to now)>
 ```
@@ -124,11 +129,7 @@ FieldResponse
 ```
 
 ### Routes
-`GET /api/response/`: Get All Survey Responses
-
-`GET /api/response/user/:id`: Get All Survey Responses by User ID
-
-`GET /api/survey/:id/response`: return Responses for given Survey id
+`GET /api/response/:id`: return Responses for given Survey id
 
 `DELETE /api/response/:id`: Delete Survey Response for ID
 
@@ -139,7 +140,7 @@ required body:
 ```
 {
     surveyRef,
-    userRef,
+    surveyTaker,
     fieldResponses
 }
 ```

@@ -1,0 +1,37 @@
+{
+    "surveyTaker": "Bilbo Baggins",
+    "surveyRef": "5bf2039f2c74bb547cf04bc8",
+    "fieldResponses": [
+        {
+            "fieldRef": "5bf2039f2c74bb547cf04bcd",
+            "response": [
+                "Hiya"
+            ]
+        },
+        {
+            "fieldRef": "5bf2039f2c74bb547cf04bcc",
+            "response": [
+                true
+            ]
+        },
+        {
+            "fieldRef": "5bf2039f2c74bb547cf04bcb",
+            "response": [
+                false
+            ]
+        },
+        {
+            "fieldRef": "5bf2039f2c74bb547cf04bca",
+            "response": [
+                "second option"
+            ]
+        },
+        {
+            "fieldRef": "5bf2039f2c74bb547cf04bc9",
+            "response": [
+                "second check",
+                "third check"
+            ]
+        }
+    ]
+}

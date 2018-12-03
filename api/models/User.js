@@ -1,27 +1,27 @@
-const mongoose = require("mongoose");
-const bcrypt = require("bcryptjs");
+const mongoose = require('mongoose');
+const bcrypt = require('bcryptjs');
 const Schema = mongoose.Schema;
 
 const UserSchema = new Schema({
   email: {
     type: String,
     unique: true,
-    required: true,
+    required: [true, 'Required Field: email'],
     trim: true
   },
   username: {
     type: String,
     unique: true,
-    required: true,
+    required: [true, 'Required Field: username'],
     trim: true
   },
   password: {
     type: String,
-    required: true
+    required: [true, 'Required Field: password']
   },
   passwordConf: {
     type: String,
-    required: true
+    required: [true, 'Required Field: passwordConf']
   }
 });
 
@@ -31,13 +31,13 @@ UserSchema.statics.authenticate = function(username, password) {
     .exec()
     .then(user => {
       if (!user) {
-        const err = new Error("User not found.");
+        const err = new Error('User not found.');
         err.status = 401;
         throw err;
       }
       return bcrypt.compare(password, user.password).then(res => {
         if (res === true) return user;
-        const err = new Error("Incorrect Password.");
+        const err = new Error('Incorrect Password.');
         err.status = 401;
         throw err;
       });
@@ -45,7 +45,7 @@ UserSchema.statics.authenticate = function(username, password) {
 };
 
 //hashing a password before saving it to the database
-UserSchema.pre("save", async function(next) {
+UserSchema.pre('save', async function(next) {
   const user = this;
   const hashedPassword = await bcrypt.hash(user.password, 10);
   const hashedPasswordConf = await bcrypt.hash(user.passwordConf, 10);
@@ -59,5 +59,5 @@ UserSchema.pre("save", async function(next) {
   }
 });
 
-const User = mongoose.model("User", UserSchema);
+const User = mongoose.model('User', UserSchema);
 module.exports = { User, UserSchema };
