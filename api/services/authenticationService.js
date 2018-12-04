@@ -5,16 +5,18 @@ mongoose
   .connect(process.env.MONGODB_URI, { useNewUrlParser: true })
   .catch(console.error);
 
-const login = ({ username, password }) =>
-  User.authenticate(username, password).then(({ _id }) => _id);
-
 async function authenticate(req, res, next) {
   if (req.session && req.session.userId) {
     return next();
   }
   try {
-    const userId = await login(req.body);
-    req.session.userId = userId;
+    const { _id } = await User.authenticate(
+      req.body.username,
+      req.body.password
+    );
+    req.session.userId = _id;
+    res.cookie('userId', _id, { maxAge: 900000, httpOnly: false });
+    res.cookie('loggedIn', true, { maxAge: 900000, httpOnly: false });
     return next();
   } catch (err) {
     res.status(401).send(err);

@@ -7,6 +7,8 @@ Router.post('/', userService.createUser);
 
 Router.post('/authenticate', userService.authenticate);
 
+Router.get('/logout', userService.logout);
+
 Router.get('/:id', userService.findUserById)
   .delete('/:id', authenticate, userService.deleteUserById)
   .put('/:id', authenticate, userService.updateUserById);

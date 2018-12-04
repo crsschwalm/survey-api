@@ -26,6 +26,8 @@ module.exports = {
       User.authenticate(username, password)
         .then(({ username, email, _id }) => {
           req.session.userId = _id;
+          res.cookie('userId', _id, { maxAge: 900000, httpOnly: false });
+          res.cookie('loggedIn', true, { maxAge: 900000, httpOnly: false });
           return res.json({ username, email, _id });
         })
         .catch(err => res.status(401).send(err));
@@ -34,6 +36,13 @@ module.exports = {
         .status(401)
         .send('Failed Authentication, Username and Password are required');
     }
+  },
+
+  logout: (req, res) => {
+    req.session.userId = undefined;
+    res.clearCookie('userId');
+    res.cookie('loggedIn', false, { maxAge: 900000, httpOnly: false });
+    return res.send('logged out');
   },
 
   deleteUserById: (req, res) => {

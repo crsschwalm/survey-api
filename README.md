@@ -41,6 +41,9 @@ required body:
 ```
 `POST /api/user/authenticate`: Checks Username in DB. Checks password matches encrypted password.
 
+**Session Authentication**
+Authentication will create a session for continuous connection to the server. This will also update the client by providing 2 cookies: `{loggedIn: true, userId: <user._id>}`
+
 required body:
 ```
 {
@@ -48,6 +51,8 @@ required body:
     password
 }
 ```
+
+`GET /api/user/logout`: Removes the session identifier server-side and sets client side cookies to `{loggedIn: false, userId: undefined}`
 
 ## Survey
 ### Schema

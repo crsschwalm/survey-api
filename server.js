@@ -10,20 +10,24 @@ const session = require('express-session');
 const port = process.env.PORT || 5000;
 const app = express();
 
+const sessionConfig = {
+  secret: 'keyboard cat',
+  resave: false,
+  saveUninitialized: false,
+  cookie: {}
+};
+
 app
   .use(bodyParser.urlencoded({ extended: true }))
   .use(bodyParser.json())
   .use(cors());
 
-app.set('trust proxy', 1);
-app.use(
-  session({
-    secret: 'keyboard cat',
-    resave: false,
-    saveUninitialized: true,
-    cookie: { secure: process.env.NODE_ENV === 'production' }
-  })
-);
+if (app.get('env') === 'production') {
+  app.set('trust proxy', 1);
+  sessionConfig.cookie.secure = true;
+}
+
+app.use(session(sessionConfig));
 
 app.use('/api', routes);
 
