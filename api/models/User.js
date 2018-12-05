@@ -31,15 +31,11 @@ UserSchema.statics.authenticate = function(username, password) {
     .exec()
     .then(user => {
       if (!user) {
-        const err = new Error('User not found.');
-        err.status = 401;
-        throw err;
+        throw 'User not found.';
       }
       return bcrypt.compare(password, user.password).then(res => {
         if (res === true) return user;
-        const err = new Error('Incorrect Password.');
-        err.status = 401;
-        throw err;
+        throw 'Incorrect Password.';
       });
     });
 };
