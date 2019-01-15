@@ -11,8 +11,12 @@ async function authenticate(req, res, next) {
     return next();
   }
 
+  console.log('req.headers.authorization :', req.headers.authorization);
+
   console.log('req.body.username :', req.body.username);
   console.log('req.body.password :', req.body.password);
+
+  console.log('req.headers :', req.headers);
 
   try {
     const { _id } = await User.authenticate(
