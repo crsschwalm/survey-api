@@ -20,7 +20,11 @@ const sessionConfig = {
 app
   .use(bodyParser.urlencoded({ extended: true }))
   .use(bodyParser.json())
-  .use(cors());
+  .use(
+    cors({
+      credentials: true
+    })
+  );
 
 if (app.get('env') === 'production') {
   app.set('trust proxy', 1);
