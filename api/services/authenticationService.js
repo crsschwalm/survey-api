@@ -6,6 +6,7 @@ mongoose
   .catch(console.error);
 
 async function authenticate(req, res, next) {
+  console.log('req.session :', req.session);
   if (req.session && req.session.userId) {
     return next();
   }
