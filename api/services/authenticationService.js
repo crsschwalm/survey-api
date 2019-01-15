@@ -10,6 +10,10 @@ async function authenticate(req, res, next) {
   if (req.session && req.session.userId) {
     return next();
   }
+
+  console.log('req.body.username :', req.body.username);
+  console.log('req.body.password :', req.body.password);
+
   try {
     const { _id } = await User.authenticate(
       req.body.username,
@@ -18,8 +22,10 @@ async function authenticate(req, res, next) {
     req.session.userId = _id;
     res.cookie('userId', _id, { maxAge: 900000, httpOnly: false });
     res.cookie('loggedIn', true, { maxAge: 900000, httpOnly: false });
+    console.log('req.session.userId :', req.session.userId);
     return next();
   } catch (err) {
+    console.log('err :', err);
     res.status(401).send(err);
   }
 }
