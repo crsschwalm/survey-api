@@ -8,7 +8,6 @@ mongoose
 
 async function authenticate(req, res, next) {
   if (req.session && req.session.userId) {
-    console.log('req.session.userId :', req.session.userId);
     return next();
   }
 
