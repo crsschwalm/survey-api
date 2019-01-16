@@ -43,13 +43,13 @@ const parseCredentials = req => {
     console.error('error in basic auth: ', err);
   }
 
-  return (
-    validateUserCredentials(basicAuthCredentials) ||
-    validateUserCredentials(req.body)
-  );
+  return validateUserCredentials(basicAuthCredentials)
+    ? basicAuthCredentials
+    : req.body;
 };
 
-const validateUserCredentials = user => !!user.username && !!user.password;
+const validateUserCredentials = user =>
+  typeof user === 'object' && !!user.username && !!user.password;
 
 const parseAuthorizationHeader = header => {
   const tokens = header.split(' ');
