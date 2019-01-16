@@ -46,6 +46,6 @@ const parseAuthorizationHeader = header => {
 };
 
 const parseAuthorizationString = string => {
-  const tokens = header.split(':');
+  const tokens = string.split(':');
   return { username: tokens[0], password: tokens[1] };
 };
