@@ -1,32 +1,34 @@
 const { User } = require('../models/User');
 const mongoose = require('mongoose');
+const base64 = require('base-64');
 
 mongoose
   .connect(process.env.MONGODB_URI, { useNewUrlParser: true })
   .catch(console.error);
 
 async function authenticate(req, res, next) {
-  console.log('req.session :', req.session);
   if (req.session && req.session.userId) {
     return next();
   }
 
-  console.log('req.headers.authorization :', req.headers.authorization);
-
-  console.log('req.body.username :', req.body.username);
-  console.log('req.body.password :', req.body.password);
-
-  console.log('req.headers :', req.headers);
+  const encryptedCredentials = parseAuthorizationHeader(
+    req.headers.authorization
+  );
+  console.log('encryptedCredentials :', encryptedCredentials);
+  const stringCredentials = base64.decode(encryptedCredentials);
+  console.log('stringCredentials :', stringCredentials);
+  const credentials = parseAuthorizationString(stringCredentials);
+  console.log('credentials :', credentials);
 
   try {
     const { _id } = await User.authenticate(
-      req.body.username,
-      req.body.password
+      credentials.username,
+      credentials.password
     );
+    console.log('_id :', _id);
     req.session.userId = _id;
     res.cookie('userId', _id, { maxAge: 900000, httpOnly: false });
     res.cookie('loggedIn', true, { maxAge: 900000, httpOnly: false });
-    console.log('req.session.userId :', req.session.userId);
     return next();
   } catch (err) {
     console.log('err :', err);
@@ -35,3 +37,15 @@ async function authenticate(req, res, next) {
 }
 
 module.exports = authenticate;
+
+const parseAuthorizationHeader = header => {
+  const tokens = header.split(' ');
+  if (tokens[0] === 'Basic') {
+    return tokens[1];
+  }
+};
+
+const parseAuthorizationString = string => {
+  const tokens = header.split(':');
+  return { username: tokens[0], password: tokens[1] };
+};
