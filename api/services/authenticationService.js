@@ -43,9 +43,10 @@ const parseCredentials = req => {
     console.error('error in basic auth: ', err);
   }
 
-  validateUserCredentials(basicAuthCredentials) ||
-    validateUserCredentials(req.body);
-  return credentials;
+  return (
+    validateUserCredentials(basicAuthCredentials) ||
+    validateUserCredentials(req.body)
+  );
 };
 
 const validateUserCredentials = user => !!user.username && !!user.password;
